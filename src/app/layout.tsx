@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { JetBrains_Mono, Manrope } from "next/font/google";
 import { Footer } from "@/components/footer/Footer";
+import { PageLoader } from "@/components/loader/PageLoader";
+import { NavigationProgress } from "@/components/loader/NavigationProgress";
 import { MotionController } from "@/components/motion/MotionController";
 import { Header } from "@/components/navigation/Header";
 import { JsonLd, organizationLd, websiteLd } from "@/lib/seo/jsonld";
@@ -33,6 +35,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <script dangerouslySetInnerHTML={{ __html: jsFlag }} />
       </head>
       <body>
+        <PageLoader />
+        <NavigationProgress />
         <Header />
         <main id="main" tabIndex={-1} className="outline-none">
           {children}

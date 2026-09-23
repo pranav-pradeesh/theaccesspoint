@@ -14,16 +14,23 @@ export function MotionController() {
   const pathname = usePathname();
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      if (prefersReducedMotion()) {
-        gsap.set("[data-reveal]", { autoAlpha: 1 });
-        return;
-      }
-      document.querySelectorAll<HTMLElement>("[data-reveal]").forEach((el) => {
-        if (el.dataset.reveal === "stagger") staggerReveal(el);
-        else reveal(el, { delay: Number(el.dataset.revealDelay ?? 0) });
+    let ctx: gsap.Context | undefined;
+    const setup = () => {
+      ctx = gsap.context(() => {
+        if (prefersReducedMotion()) {
+          gsap.set("[data-reveal]", { opacity: 1 });
+          return;
+        }
+        document.querySelectorAll<HTMLElement>("[data-reveal]").forEach((el) => {
+          if (el.dataset.reveal === "stagger") staggerReveal(el);
+          else reveal(el, { delay: Number(el.dataset.revealDelay ?? 0) });
+        });
       });
-    });
+    };
+    // Wait for the first-load loader to lift so entrance fades aren't spent behind it.
+    const loading = document.documentElement.classList.contains("ap-loading");
+    if (loading) window.addEventListener("ap:loaded", setup, { once: true });
+    else setup();
 
     // ScrollTrigger already refreshes on window load; fonts can land later and shift layout.
     let alive = true;
@@ -31,7 +38,8 @@ export function MotionController() {
 
     return () => {
       alive = false;
-      ctx.revert();
+      window.removeEventListener("ap:loaded", setup);
+      ctx?.revert();
     };
   }, [pathname]);
 

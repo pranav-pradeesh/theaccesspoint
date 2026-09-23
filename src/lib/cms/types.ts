@@ -45,6 +45,16 @@ export type Project = {
   gallery: { caption: string; art: "system" | "type" | "motion" | "grid" | "courses" | "architecture" }[];
 };
 
+export type CourseCategory = "Programming" | "Creative" | "Infrastructure";
+
+export type Course = {
+  slug: string;
+  title: string;
+  category: CourseCategory;
+  summary: string;
+  topics: string[];
+};
+
 export type ArticleCategory =
   | "Web Development"
   | "Design"

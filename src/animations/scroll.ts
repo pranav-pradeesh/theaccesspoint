@@ -6,9 +6,9 @@ import { gsap } from "./gsap";
 export function reveal(el: Element, { delay = 0 }: { delay?: number } = {}) {
   return gsap.fromTo(
     el,
-    { autoAlpha: 0, y: 16 },
+    { opacity: 0, y: 16 },
     {
-      autoAlpha: 1,
+      opacity: 1,
       y: 0,
       duration: 0.6,
       delay,
@@ -20,12 +20,12 @@ export function reveal(el: Element, { delay = 0 }: { delay?: number } = {}) {
 
 /** Reveal direct children one after another. */
 export function staggerReveal(el: Element) {
-  gsap.set(el, { autoAlpha: 1 });
+  gsap.set(el, { opacity: 1 });
   return gsap.fromTo(
     el.children,
-    { autoAlpha: 0, y: 12 },
+    { opacity: 0, y: 12 },
     {
-      autoAlpha: 1,
+      opacity: 1,
       y: 0,
       duration: 0.5,
       stagger: 0.05,

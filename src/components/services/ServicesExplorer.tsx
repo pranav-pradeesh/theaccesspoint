@@ -22,7 +22,7 @@ export function ServicesExplorer({ services }: { services: Service[] }) {
           return (
             <li key={s.slug} className="border-b border-line">
               <Link
-                href={`/services#${s.slug}`}
+                href={s.slug === "technical-education" ? "/training" : `/services#${s.slug}`}
                 onPointerEnter={() => setActive(i)}
                 onFocus={() => setActive(i)}
                 className="group flex items-start gap-5 py-6 lg:items-center lg:py-7"
