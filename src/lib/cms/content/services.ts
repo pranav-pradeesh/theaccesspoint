@@ -46,7 +46,7 @@ export const services: Service[] = [
     title: "Technical Training",
     summary: "Practical courses in programming, animation, networking and cloud.",
     description:
-      "We run practical training courses at our Coimbatore centre, covering Java, Android, PHP, .NET, web development, animation, hardware and networking, and cloud computing.",
-    offerings: ["Programming", "Web & mobile development", "Animation", "Hardware & networking", "Cloud computing"],
+      "We run practical training courses at our Coimbatore centre, covering Java, Android, PHP, .NET, web development, animation, hardware and networking, and cloud computing. Several courses are offered as affiliated programmes.",
+    offerings: ["Programming", "Web & mobile development", "Animation", "Hardware & networking", "Cloud computing", "Affiliated programmes"],
   },
 ];

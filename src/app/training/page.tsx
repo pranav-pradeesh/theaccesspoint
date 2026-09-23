@@ -24,6 +24,10 @@ export default async function TrainingPage() {
         title="Training courses"
         lead="Classroom courses in programming, web and mobile development, animation, networking and cloud computing at our Coimbatore centre. Contact us for batch timings, duration and fees."
       >
+        <p className="mt-4 max-w-2xl text-fg-2">
+          Several of our courses are offered as affiliated programmes, leading to a certificate from the affiliated
+          institution. Ask us which courses are affiliated and the certification each one leads to.
+        </p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <a href="#enquire" className="btn btn-primary">
             Enquire about admission
@@ -47,6 +51,15 @@ export default async function TrainingPage() {
                 {list.map((c) => (
                   <li key={c.slug} id={c.slug} className="card flex scroll-mt-24 flex-col p-6">
                     <h3 className="t-h3">{c.title}</h3>
+                    {c.affiliation && (
+                      <p className="mt-2 text-sm">
+                        <span className="tag mr-2">Affiliated programme</span>
+                        <span className="text-fg-2">
+                          {c.affiliation.partner}
+                          {c.affiliation.certificate ? `, ${c.affiliation.certificate}` : ""}
+                        </span>
+                      </p>
+                    )}
                     <p className="mt-2 text-fg-2">{c.summary}</p>
                     <ul className="mt-4 flex flex-wrap gap-2" aria-label={`${c.title} topics`}>
                       {c.topics.map((t) => (
@@ -82,6 +95,9 @@ export default async function TrainingPage() {
             name: c.title,
             description: c.summary,
             url: absoluteUrl(`/training#${c.slug}`),
+            ...(c.affiliation?.certificate
+              ? { educationalCredentialAwarded: `${c.affiliation.certificate} (${c.affiliation.partner})` }
+              : {}),
             provider: { "@type": "Organization", name: siteConfig.name, url: siteConfig.url },
           })),
         ]}

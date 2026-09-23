@@ -1,6 +1,10 @@
 import type { Course } from "../types";
 
-/** Training courses offered by The Access Point. Durations and fees are not published yet. */
+/**
+ * Training courses offered by The Access Point. Durations and fees are not published yet.
+ * Some courses run as affiliated programmes: add `affiliation: { partner, certificate }` to those
+ * entries (e.g. the university or certification body and the certificate students receive).
+ */
 export const courses: Course[] = [
   {
     slug: "android-programming",

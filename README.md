@@ -47,7 +47,7 @@ src/
 Pages read content through the async functions in `src/lib/cms/index.ts`, which currently return typed data from `src/lib/cms/content/*.ts`. Moving to a headless CMS later means reimplementing that file; pages don't change.
 
 - **Services:** `content/services.ts`
-- **Training courses:** `content/courses.ts`
+- **Training courses:** `content/courses.ts`. For courses run as affiliated programmes, add `affiliation: { partner, certificate }`; the Training page then shows an "Affiliated programme" badge with those details.
 - **Values and mission:** `content/company.ts`
 - **Contact details:** `src/lib/site.ts`. The email, phone and Coimbatore address come from the company's 2017 site; confirm they are current. Add only verified social profiles.
 
