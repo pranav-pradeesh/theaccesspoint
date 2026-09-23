@@ -160,9 +160,10 @@ export function Header() {
           <TransitionLink href="/contact" className="btn btn-primary btn-lg w-full">
             Start a Project <span className="arrow">→</span>
           </TransitionLink>
-          <a href={`mailto:${siteConfig.email}`} className="mt-5 block text-center text-fg-2">
-            {siteConfig.email}
-          </a>
+          <div className="mt-5 flex flex-wrap justify-center gap-x-6 gap-y-2 text-fg-2">
+            <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
+            <a href={siteConfig.phone.href}>{siteConfig.phone.display}</a>
+          </div>
         </div>
       </div>
     </>

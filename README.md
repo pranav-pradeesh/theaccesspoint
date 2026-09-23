@@ -56,7 +56,7 @@ All content is read through the async functions in `src/lib/cms/index.ts`. Right
 - **Case studies:** `content/projects.ts`. Only publish real work. The two entries right now are in-house: the site itself and the Academy concept, which is labelled "Concept".
 - **Articles:** `content/articles.ts`
 - **Services / philosophy / mission / process:** `content/services.ts`, `content/company.ts`
-- **Contact details:** `src/lib/site.ts`. Confirm the email before launch, and add only verified social profiles.
+- **Contact details:** `src/lib/site.ts` — email, phone and Coimbatore address are taken from the company's 2017 site; confirm they are current. Add only verified social profiles.
 
 ### Motion
 

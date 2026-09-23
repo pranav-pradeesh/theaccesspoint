@@ -49,11 +49,26 @@ export default function ContactPage() {
               </ol>
             </div>
 
-            <div data-reveal className="mt-12">
-              <p className="t-micro text-fg-3">Prefer email?</p>
-              <a href={`mailto:${siteConfig.email}`} className="link-cta mt-3 text-lg">
-                {siteConfig.email}
-              </a>
+            <div data-reveal className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-1">
+              <div>
+                <p className="t-micro text-fg-3">Prefer to talk directly?</p>
+                <a href={`mailto:${siteConfig.email}`} className="link-cta mt-3 flex w-fit text-lg">
+                  {siteConfig.email}
+                </a>
+                <a href={siteConfig.phone.href} className="link-cta mt-3 flex w-fit text-lg">
+                  {siteConfig.phone.display}
+                </a>
+              </div>
+              <div>
+                <p className="t-micro text-fg-3">Visit us</p>
+                <address className="mt-3 text-fg-2 not-italic">
+                  {siteConfig.address.lines.map((line) => (
+                    <span key={line} className="block">
+                      {line}
+                    </span>
+                  ))}
+                </address>
+              </div>
             </div>
           </div>
 

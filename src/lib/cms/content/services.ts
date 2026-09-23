@@ -8,7 +8,7 @@ export const services: Service[] = [
     summary: "Fast, accessible websites and web applications engineered to last.",
     description:
       "From a focused landing page to a full web application, we build on modern, well-supported foundations so your site is fast on real phones, easy to find in search and simple to grow.",
-    offerings: ["Corporate websites", "Business websites", "Landing pages", "E-commerce", "Web applications"],
+    offerings: ["Corporate websites", "Business websites", "Landing pages", "E-commerce", "Web applications", "Web hosting"],
     deliverables: ["Responsive front-end", "CMS integration", "Performance budget", "SEO foundations", "Deployment & hosting setup"],
     visual: "web",
   },
@@ -16,10 +16,10 @@ export const services: Service[] = [
     slug: "software-development",
     index: "02",
     title: "Software Development",
-    summary: "Custom software shaped around how your business actually works.",
+    summary: "Custom software and mobile apps shaped around how your business actually works.",
     description:
-      "We design and build business applications, dashboards and APIs — starting from the workflow, not the feature list — so the software removes friction instead of adding it.",
-    offerings: ["SaaS", "Business applications", "Custom software", "Dashboards", "APIs"],
+      "We design and build business applications, mobile apps, dashboards and APIs — starting from the workflow, not the feature list — so the software removes friction instead of adding it.",
+    offerings: ["SaaS", "Business applications", "Mobile apps", "Custom software", "Dashboards", "APIs"],
     deliverables: ["System architecture", "Data modelling", "API design", "Admin tooling", "Documentation & handover"],
     visual: "software",
   },
@@ -41,7 +41,7 @@ export const services: Service[] = [
     summary: "Identities with a clear idea at the centre — and a system around it.",
     description:
       "We find the one idea your brand should stand for, then build the mark, typography, colour and rules that let it show up consistently everywhere.",
-    offerings: ["Brand identity", "Logo design", "Visual systems", "Brand guidelines", "Digital branding"],
+    offerings: ["Brand identity", "Logo design", "Graphic design", "Visual systems", "Brand guidelines", "Digital branding"],
     deliverables: ["Brand strategy", "Logo suite", "Typography & colour system", "Guidelines", "Launch assets"],
     visual: "brand",
   },

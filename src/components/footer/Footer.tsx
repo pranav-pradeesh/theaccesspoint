@@ -49,7 +49,20 @@ export function Footer() {
                     {siteConfig.email}
                   </a>
                 </li>
-                <li>{siteConfig.location}</li>
+                <li>
+                  <a href={siteConfig.phone.href} className="link-underline hover:text-fg">
+                    {siteConfig.phone.display}
+                  </a>
+                </li>
+                <li>
+                  <address className="not-italic">
+                    {siteConfig.address.lines.map((line) => (
+                      <span key={line} className="block">
+                        {line}
+                      </span>
+                    ))}
+                  </address>
+                </li>
               </ul>
             </div>
             {siteConfig.socials.length > 0 && (
