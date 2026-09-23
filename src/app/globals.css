@@ -32,6 +32,11 @@
   --accent: #0058dc;
   --danger: #c62828;
   --mark-spark: #086bff;
+  --il-bg: #f5f7fa;
+  --il-card: #ffffff;
+  --il-soft: #e3eaf5;
+  --il-line: rgb(15 23 42 / 0.16);
+  --il-ink: #475569;
 }
 
 /* Dark: an explicit choice, or the system setting when no choice has been made. */
@@ -48,6 +53,11 @@
   --accent: #25c7ff;
   --danger: #ff8a8a;
   --mark-spark: #ffffff;
+  --il-bg: #0c1220;
+  --il-card: #121a2b;
+  --il-soft: #1d2940;
+  --il-line: rgb(255 255 255 / 0.16);
+  --il-ink: #a3b0c2;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
@@ -63,6 +73,11 @@
     --accent: #25c7ff;
     --danger: #ff8a8a;
     --mark-spark: #ffffff;
+  --il-bg: #0c1220;
+  --il-card: #121a2b;
+  --il-soft: #1d2940;
+  --il-line: rgb(255 255 255 / 0.16);
+  --il-ink: #a3b0c2;
   }
 }
 
@@ -163,10 +178,6 @@
     font-size: 15px;
     white-space: nowrap;
     border: 1px solid transparent;
-    transition:
-      background-color 150ms ease,
-      border-color 150ms ease,
-      color 150ms ease;
   }
   .btn-primary {
     background: #086bff;
@@ -344,7 +355,141 @@ html.js #ap-loader.apl-done {
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* ---- Small motion -------------------------------------------------------- */
+
+/* Sections fade up once as they enter the viewport (RevealOnScroll.tsx). Only with JS and
+   without a reduced-motion preference, so content is never hidden otherwise. */
+@media (prefers-reduced-motion: no-preference) {
+  html.js [data-reveal] {
+    opacity: 0;
+    transform: translateY(14px);
+    transition:
+      opacity 500ms ease,
+      transform 500ms cubic-bezier(0.2, 0.7, 0.2, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  html.js [data-reveal].is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Cards that link somewhere lift slightly on hover; buttons press in. */
+.card-link {
+  transition:
+    transform 200ms ease,
+    border-color 200ms ease,
+    box-shadow 200ms ease;
+}
+.card-link:hover {
+  transform: translateY(-3px);
+  border-color: var(--line-strong);
+  box-shadow: 0 10px 24px -14px rgb(15 23 42 / 0.35);
+}
+.card-link .illo {
+  transition: transform 300ms ease;
+}
+.card-link:hover .illo {
+  transform: scale(1.02);
+}
+.btn {
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease,
+    color 150ms ease,
+    transform 100ms ease;
+}
+.btn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+/* Illustration details */
+.illo {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.il-blink {
+  animation: il-blink 1.1s steps(1) infinite;
+}
+.il-float {
+  animation: il-float 4s ease-in-out infinite;
+}
+.il-pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: il-pulse 2s ease-in-out infinite;
+}
+.il-flow {
+  animation: il-flow 1.2s linear infinite;
+}
+.il-bar {
+  transform-box: fill-box;
+  transform-origin: bottom;
+  animation: il-bar 3s ease-in-out infinite alternate;
+}
+.il-rise {
+  animation: il-rise 3.6s ease-in-out infinite;
+}
+.il-draw {
+  stroke-dasharray: 400;
+  animation: il-draw 5s ease-in-out infinite;
+}
+.il-scrub {
+  animation: il-scrub 5s ease-in-out infinite alternate;
+}
+@keyframes il-blink {
+  50% {
+    opacity: 0;
+  }
+}
+@keyframes il-float {
+  50% {
+    transform: translateY(-5px);
+  }
+}
+@keyframes il-pulse {
+  50% {
+    transform: scale(1.35);
+    opacity: 0.6;
+  }
+}
+@keyframes il-flow {
+  to {
+    stroke-dashoffset: -26;
+  }
+}
+@keyframes il-bar {
+  from {
+    transform: scaleY(0.75);
+  }
+}
+@keyframes il-rise {
+  0%,
+  100% {
+    transform: none;
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+@keyframes il-draw {
+  0% {
+    stroke-dashoffset: 400;
+  }
+  45%,
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes il-scrub {
+  to {
+    transform: translateX(140px);
   }
 }
 

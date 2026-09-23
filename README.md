@@ -67,10 +67,16 @@ Only publish real information. There is no portfolio or blog yet; add them once 
 
 `components/navigation/SmoothScroll.tsx` enables [Lenis](https://github.com/darkroomengineering/lenis) for mouse-wheel scrolling. Touch devices keep native scrolling, visitors with reduced motion enabled get native scrolling, and in-page links use the browser's own jump.
 
+### Illustrations, motion and sound
+
+- **Illustrations** (`components/illustrations/Illustration.tsx`) are inline SVGs mapped to each service and course by slug. They follow the light/dark theme and add no image requests. They are placeholders for real photos of the centre, classes and client work: photos are better for trust and for image search, so replace or supplement them when you have them (use `next/image`).
+- **Motion:** sections fade up once as they scroll into view (`[data-reveal]` + `components/motion/RevealOnScroll.tsx`), linked cards lift on hover, buttons press in, and illustrations have small looping details. Everything is skipped for visitors who prefer reduced motion, and nothing is hidden without JavaScript.
+- **Click sounds** (`lib/sound.ts`, `components/navigation/SoundToggle.tsx`) are synthesised with the Web Audio API and are **off by default**; the speaker button in the header turns them on and the choice is saved. To make them on by default, change `soundEnabled()` to return true when nothing is stored.
+
 ### Themes
 
 Light and dark themes are defined as CSS variables in `src/app/globals.css` (light on `:root`, dark on `[data-theme="dark"]`, plus a `prefers-color-scheme` fallback for visitors without JavaScript). A small script in `layout.tsx` applies the saved choice, or the system setting, before first paint so there is no flash. The header toggle (`components/navigation/ThemeToggle.tsx`) switches themes and saves the choice in `localStorage`.
 
 ### Loader
 
-On a full page load, an inline script (`components/loader/loaderScript.ts`) shows a progress overlay driven by real resource loading (Resource Timing API) and removes it on the window `load` event. It only appears if loading takes longer than 300ms, and a 10s failsafe always releases the page. In-app navigation shows a thin top bar that completes when the new page renders. Apart from Lenis smooth scrolling, there are no other animations. The page scrollbar is hidden; scrolling works normally.
+On a full page load, an inline script (`components/loader/loaderScript.ts`) shows a progress overlay driven by real resource loading (Resource Timing API) and removes it on the window `load` event. It only appears if loading takes longer than 300ms, and a 10s failsafe always releases the page. In-app navigation shows a thin top bar that completes when the new page renders. Other motion is described under "Illustrations, motion and sound". The page scrollbar is hidden; scrolling works normally.

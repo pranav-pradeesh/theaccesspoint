@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { CourseIllustration } from "@/components/illustrations/Illustration";
 import { CourseEnquiry } from "@/components/training/CourseEnquiry";
 import { PageHero } from "@/components/ui/PageHero";
 import { getCourses, type CourseCategory } from "@/lib/cms";
@@ -50,36 +51,41 @@ export default async function TrainingPage() {
               </h2>
               <ul className="mt-6 grid gap-4 md:grid-cols-2">
                 {list.map((c) => (
-                  <li key={c.slug} id={c.slug} className="card flex scroll-mt-24 flex-col p-6">
-                    <h3 className="t-h3">
-                      <Link href={`/training/${c.slug}`} className="hover:text-accent">
-                        {c.title}
-                      </Link>
-                    </h3>
-                    {c.affiliation && (
-                      <p className="mt-2 text-sm">
-                        <span className="tag mr-2">Affiliated programme</span>
-                        <span className="text-fg-2">
-                          {c.affiliation.partner}
-                          {c.affiliation.certificate ? `, ${c.affiliation.certificate}` : ""}
-                        </span>
-                      </p>
-                    )}
-                    <p className="mt-2 text-fg-2">{c.summary}</p>
-                    <ul className="mt-4 flex flex-wrap gap-2" aria-label={`${c.title} topics`}>
-                      {c.topics.map((t) => (
-                        <li key={t} className="tag">
-                          {t}
-                        </li>
-                      ))}
-                    </ul>
-                    <div className="mt-auto flex flex-wrap gap-x-6 gap-y-2 pt-5 text-sm font-semibold">
-                      <Link href={`/training/${c.slug}`} className="link">
-                        Syllabus and details<span className="sr-only">: {c.title}</span>
-                      </Link>
-                      <a href={`#enquire-${c.slug}`} className="link">
-                        Enquire<span className="sr-only"> about {c.title}</span>
-                      </a>
+                  <li key={c.slug} id={c.slug} className="card card-link flex scroll-mt-24 flex-col overflow-hidden" data-reveal>
+                    <Link href={`/training/${c.slug}`} tabIndex={-1} aria-hidden>
+                      <CourseIllustration slug={c.slug} className="border-b border-line" />
+                    </Link>
+                    <div className="flex flex-1 flex-col p-6">
+                      <h3 className="t-h3">
+                        <Link href={`/training/${c.slug}`} className="hover:text-accent">
+                          {c.title}
+                        </Link>
+                      </h3>
+                      {c.affiliation && (
+                        <p className="mt-2 text-sm">
+                          <span className="tag mr-2">Affiliated programme</span>
+                          <span className="text-fg-2">
+                            {c.affiliation.partner}
+                            {c.affiliation.certificate ? `, ${c.affiliation.certificate}` : ""}
+                          </span>
+                        </p>
+                      )}
+                      <p className="mt-2 text-fg-2">{c.summary}</p>
+                      <ul className="mt-4 flex flex-wrap gap-2" aria-label={`${c.title} topics`}>
+                        {c.topics.map((t) => (
+                          <li key={t} className="tag">
+                            {t}
+                          </li>
+                        ))}
+                      </ul>
+                      <div className="mt-auto flex flex-wrap gap-x-6 gap-y-2 pt-5 text-sm font-semibold">
+                        <Link href={`/training/${c.slug}`} className="link">
+                          Syllabus and details<span className="sr-only">: {c.title}</span>
+                        </Link>
+                        <a href={`#enquire-${c.slug}`} className="link">
+                          Enquire<span className="sr-only"> about {c.title}</span>
+                        </a>
+                      </div>
                     </div>
                   </li>
                 ))}

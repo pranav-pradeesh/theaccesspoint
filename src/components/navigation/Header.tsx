@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Logo } from "@/components/brand/Logo";
+import { SoundToggle } from "@/components/navigation/SoundToggle";
 import { ThemeToggle } from "@/components/navigation/ThemeToggle";
 import { primaryNav } from "@/lib/site";
 
@@ -65,7 +66,10 @@ export function Header() {
             </ul>
           </nav>
 
-          <ThemeToggle />
+          <div className="flex items-center gap-2">
+            <SoundToggle />
+            <ThemeToggle />
+          </div>
 
           <button
             ref={toggleRef}

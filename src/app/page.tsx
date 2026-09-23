@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Illustration, ServiceIllustration } from "@/components/illustrations/Illustration";
 import { FaqList } from "@/components/ui/FaqList";
 import { getCourses, getFaqs, getServices, serviceHref } from "@/lib/cms";
 import { siteConfig } from "@/lib/site";
@@ -70,9 +71,12 @@ export default async function HomePage() {
       {/* Who we are */}
       <section className="section" aria-labelledby="about-heading">
         <div className="container-ap grid gap-10 md:grid-cols-[1fr_1.4fr] md:gap-12">
-          <h2 id="about-heading" className="t-h2">
-            About The Access Point
-          </h2>
+          <div>
+            <h2 id="about-heading" className="t-h2">
+              About The Access Point
+            </h2>
+            <Illustration name="code" className="mt-6 max-w-sm rounded-xl" />
+          </div>
           <div className="space-y-4 text-lg text-fg-2">
             <p>
               The Access Point is a Coimbatore company with two sides to its work. For businesses and institutions, we
@@ -94,8 +98,8 @@ export default async function HomePage() {
             Who we work with
           </h2>
           <ul className="mt-8 grid gap-4 md:grid-cols-3">
-            {audiences.map((a) => (
-              <li key={a.title} className="card bg-canvas p-6">
+            {audiences.map((a, i) => (
+              <li key={a.title} className="card bg-canvas p-6" data-reveal style={{ "--reveal-delay": `${i * 80}ms` } as React.CSSProperties}>
                 <h3 className="t-h3">{a.title}</h3>
                 <p className="mt-2 text-fg-2">{a.text}</p>
                 <Link href={a.href} className="link mt-4 inline-block text-sm font-semibold">
@@ -122,14 +126,14 @@ export default async function HomePage() {
             </Link>
           </div>
           <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {services.map((s) => (
-              <li key={s.slug}>
-                <Link
-                  href={serviceHref(s)}
-                  className="card block h-full p-6 transition-colors hover:border-line-strong"
-                >
-                  <h3 className="t-h3">{s.title}</h3>
-                  <p className="mt-2 text-fg-2">{s.summary}</p>
+            {services.map((s, i) => (
+              <li key={s.slug} data-reveal style={{ "--reveal-delay": `${(i % 3) * 80}ms` } as React.CSSProperties}>
+                <Link href={serviceHref(s)} className="card card-link block h-full overflow-hidden">
+                  <ServiceIllustration slug={s.slug} className="border-b border-line" />
+                  <div className="p-6">
+                    <h3 className="t-h3">{s.title}</h3>
+                    <p className="mt-2 text-fg-2">{s.summary}</p>
+                  </div>
                 </Link>
               </li>
             ))}

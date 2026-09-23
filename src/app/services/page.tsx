@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ServiceIllustration } from "@/components/illustrations/Illustration";
 import { PageHero } from "@/components/ui/PageHero";
 import { getServices, serviceHref } from "@/lib/cms";
 import { breadcrumbLd, itemListLd, JsonLd } from "@/lib/seo/jsonld";
@@ -27,11 +28,15 @@ export default async function ServicesPage() {
             key={s.slug}
             id={s.slug}
             aria-labelledby={`${s.slug}-title`}
+            data-reveal
             className="grid scroll-mt-24 gap-4 border-b border-line py-10 last:border-b-0 md:grid-cols-[1fr_1.4fr] md:gap-12"
           >
-            <h2 id={`${s.slug}-title`} className="t-h2">
-              {s.title}
-            </h2>
+            <div>
+              <h2 id={`${s.slug}-title`} className="t-h2">
+                {s.title}
+              </h2>
+              <ServiceIllustration slug={s.slug} className="mt-6 max-w-sm rounded-xl" />
+            </div>
             <div>
               <p className="text-lg text-fg-2">{s.description}</p>
               <ul className="mt-5 flex flex-wrap gap-2" aria-label={`${s.title} includes`}>
