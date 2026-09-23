@@ -1,9 +1,8 @@
 import Link from "next/link";
 import { PageHero } from "@/components/ui/PageHero";
-import { getServices } from "@/lib/cms";
-import { breadcrumbLd, JsonLd } from "@/lib/seo/jsonld";
+import { getServices, serviceHref } from "@/lib/cms";
+import { breadcrumbLd, itemListLd, JsonLd } from "@/lib/seo/jsonld";
 import { buildMetadata } from "@/lib/seo/metadata";
-import { absoluteUrl, siteConfig } from "@/lib/site";
 
 export const metadata = buildMetadata({
   title: "Services",
@@ -42,11 +41,9 @@ export default async function ServicesPage() {
                   </li>
                 ))}
               </ul>
-              {s.slug === "technical-education" && (
-                <Link href="/training" className="btn btn-secondary mt-6">
-                  View courses
-                </Link>
-              )}
+              <Link href={serviceHref(s)} className="btn btn-secondary mt-6">
+                {s.href ? "View courses" : `More about ${s.title.toLowerCase()}`}
+              </Link>
             </div>
           </section>
         ))}
@@ -67,15 +64,7 @@ export default async function ServicesPage() {
             { name: "Home", path: "/" },
             { name: "Services", path: "/services" },
           ]),
-          ...services.map((s) => ({
-            "@context": "https://schema.org",
-            "@type": "Service",
-            name: s.title,
-            description: s.description,
-            serviceType: s.title,
-            url: absoluteUrl(`/services#${s.slug}`),
-            provider: { "@type": "Organization", name: siteConfig.name, url: siteConfig.url },
-          })),
+          itemListLd("Services", services.map((s) => ({ name: s.title, path: serviceHref(s) }))),
         ]}
       />
     </>
