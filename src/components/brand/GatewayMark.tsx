@@ -62,12 +62,3 @@ export function GatewayMark({
     </svg>
   );
 }
-
-/** Spark alone — used inside the page-transition gateway. */
-export function GatewayGlyph() {
-  return (
-    <svg viewBox="70 70 60 60" className="size-full drop-shadow-[0_0_24px_rgba(37,199,255,0.8)]" aria-hidden>
-      <path d={SPARK_PATH} fill="#ffffff" />
-    </svg>
-  );
-}

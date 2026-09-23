@@ -1,4 +1,4 @@
-import { TransitionLink } from "@/components/transitions/TransitionLink";
+import Link from "next/link";
 
 export function CtaBand({
   title = "Have something in mind?",
@@ -19,12 +19,12 @@ export function CtaBand({
           <h2 className="t-h1 mx-auto max-w-[16ch]">{title}</h2>
           <p className="t-lead mx-auto mt-6 max-w-xl text-fg-2">{lead}</p>
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <TransitionLink href="/contact" data-magnetic data-track="CTA Band" className="btn btn-primary btn-lg">
+            <Link href="/contact" className="btn btn-primary btn-lg">
               Start a Project <span className="arrow">→</span>
-            </TransitionLink>
-            <TransitionLink href="/work" className="btn btn-secondary btn-lg">
+            </Link>
+            <Link href="/work" className="btn btn-secondary btn-lg">
               Explore Our Work
-            </TransitionLink>
+            </Link>
           </div>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { TransitionLink } from "@/components/transitions/TransitionLink";
+import Link from "next/link";
 import { CtaBand } from "@/components/ui/CtaBand";
 import { RichText } from "@/components/ui/RichText";
 import { SectionLabel } from "@/components/ui/SectionLabel";
@@ -42,9 +42,9 @@ export default async function ArticlePage({ params }: PageProps<"/insights/[slug
           <div className="pointer-events-none absolute inset-0" style={{ background: "var(--ambient-glow)" }} aria-hidden />
           <div className="container-ap relative max-w-5xl!">
             <div data-reveal>
-              <TransitionLink href="/insights" className="t-micro text-fg-2 hover:text-cyan">
+              <Link href="/insights" className="t-micro text-fg-2 hover:text-cyan">
                 ← Insights
-              </TransitionLink>
+              </Link>
             </div>
             <div data-reveal className="mt-10">
               <SectionLabel>{article.category}</SectionLabel>
@@ -82,11 +82,11 @@ export default async function ArticlePage({ params }: PageProps<"/insights/[slug
             <ul className="mt-8 grid gap-6 md:grid-cols-2">
               {more.map((a) => (
                 <li key={a.slug}>
-                  <TransitionLink href={`/insights/${a.slug}`} data-cursor="open" className="card-gateway block h-full p-8">
+                  <Link href={`/insights/${a.slug}`} className="card-gateway block h-full p-8">
                     <p className="t-micro text-cyan">{a.category}</p>
                     <h3 className="t-h3 mt-4">{a.title}</h3>
                     <p className="mt-3 text-fg-2">{a.excerpt}</p>
-                  </TransitionLink>
+                  </Link>
                 </li>
               ))}
             </ul>

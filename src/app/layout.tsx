@@ -1,12 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { JetBrains_Mono, Manrope } from "next/font/google";
-import { Analytics } from "@/components/analytics/Analytics";
-import { CustomCursor } from "@/components/cursor/CustomCursor";
 import { Footer } from "@/components/footer/Footer";
 import { MotionController } from "@/components/motion/MotionController";
-import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import { Header } from "@/components/navigation/Header";
-import { TransitionProvider } from "@/components/transitions/TransitionProvider";
 import { JsonLd, organizationLd, websiteLd } from "@/lib/seo/jsonld";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { siteConfig } from "@/lib/site";
@@ -37,18 +33,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <script dangerouslySetInnerHTML={{ __html: jsFlag }} />
       </head>
       <body>
-        <SmoothScroll>
-          <TransitionProvider>
-            <Header />
-            <main id="main" tabIndex={-1} className="outline-none">
-              {children}
-            </main>
-            <Footer />
-            <MotionController />
-            <CustomCursor />
-            <Analytics />
-          </TransitionProvider>
-        </SmoothScroll>
+        <Header />
+        <main id="main" tabIndex={-1} className="outline-none">
+          {children}
+        </main>
+        <Footer />
+        <MotionController />
         <JsonLd data={[organizationLd(), websiteLd()]} />
       </body>
     </html>

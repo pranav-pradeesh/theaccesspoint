@@ -22,6 +22,15 @@ export const organizationLd = (): Thing => ({
   url: siteConfig.url,
   logo: absoluteUrl("/icon.svg"),
   email: siteConfig.email,
+  telephone: siteConfig.phone.href.replace("tel:", ""),
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: siteConfig.address.street,
+    addressLocality: siteConfig.address.locality,
+    addressRegion: siteConfig.address.region,
+    postalCode: siteConfig.address.postalCode,
+    addressCountry: siteConfig.address.country,
+  },
   ...(siteConfig.socials.length ? { sameAs: siteConfig.socials.map((s) => s.href) } : {}),
 });
 

@@ -1,6 +1,6 @@
 import type { ElementType } from "react";
 
-/** Server-rendered words that light up on scroll (wired by MotionController via data-split). */
+/** Large statement with optional highlighted words. */
 export function SplitStatement({
   text,
   as: Tag = "p",
@@ -14,12 +14,10 @@ export function SplitStatement({
 }) {
   const words = text.split(" ");
   return (
-    <Tag data-split className={className}>
+    <Tag data-reveal className={className}>
       {words.map((word, i) => (
         <span key={i}>
-          <span data-word className={highlight.includes(word.replace(/[.,]/g, "")) ? "text-cyan" : undefined}>
-            {word}
-          </span>
+          {highlight.includes(word.replace(/[.,]/g, "")) ? <span className="text-cyan">{word}</span> : word}
           {i < words.length - 1 ? " " : ""}
         </span>
       ))}

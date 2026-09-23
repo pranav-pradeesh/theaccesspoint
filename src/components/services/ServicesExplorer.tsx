@@ -2,8 +2,7 @@
 
 import { useState } from "react";
 import { ServiceVisual } from "@/components/visuals/ServiceVisual";
-import { TransitionLink } from "@/components/transitions/TransitionLink";
-import { track } from "@/lib/analytics/track";
+import Link from "next/link";
 import type { Service } from "@/lib/cms/types";
 
 /**
@@ -22,12 +21,10 @@ export function ServicesExplorer({ services }: { services: Service[] }) {
           const isActive = i === active;
           return (
             <li key={s.slug} className="border-b border-line">
-              <TransitionLink
+              <Link
                 href={`/services#${s.slug}`}
-                data-cursor="open"
                 onPointerEnter={() => setActive(i)}
                 onFocus={() => setActive(i)}
-                onClick={() => track("Service Interaction", { service: s.title, source: "home" })}
                 className="group flex items-start gap-5 py-6 lg:items-center lg:py-7"
               >
                 <span className={`t-micro pt-2 transition-colors lg:pt-0 ${isActive ? "text-cyan" : "text-fg-3"}`}>{s.index}</span>
@@ -55,7 +52,7 @@ export function ServicesExplorer({ services }: { services: Service[] }) {
                 >
                   →
                 </span>
-              </TransitionLink>
+              </Link>
             </li>
           );
         })}
@@ -69,7 +66,7 @@ export function ServicesExplorer({ services }: { services: Service[] }) {
               <ServiceVisual kind={current.visual} className="absolute inset-0 size-full p-4" />
             </div>
             <p className="t-micro mt-7 text-cyan">
-              {`[ ${current.index} // ${current.title} ]`}
+              {current.title}
             </p>
             <p className="mt-3 text-lg leading-snug text-fg">{current.summary}</p>
             <ul className="mt-5 flex flex-wrap gap-2">

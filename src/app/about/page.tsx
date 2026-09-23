@@ -32,7 +32,7 @@ export default async function AboutPage() {
               <SectionLabel index="01">Our story</SectionLabel>
             </div>
             <h2 id="story-heading" data-reveal className="t-h2 mt-6">
-              A studio with a teacher&apos;s instinct.
+              Who we are
             </h2>
           </div>
           <div data-reveal="stagger" className="space-y-6 text-lg leading-relaxed text-fg-2 lg:col-span-7 lg:col-start-6">
@@ -61,7 +61,7 @@ export default async function AboutPage() {
             <SectionLabel index="02">Philosophy</SectionLabel>
           </div>
           <h2 id="philosophy-heading" data-reveal className="t-h1 mt-6 max-w-[16ch]">
-            What we will and won&apos;t compromise on.
+            Our values
           </h2>
           <ol className="mt-16 border-t border-line">
             {philosophy.map((p, i) => (
@@ -92,7 +92,7 @@ export default async function AboutPage() {
             Vision
           </h2>
           <SplitStatement
-            className="t-display mt-10 max-w-[12ch]"
+            className="t-h1 mt-8 max-w-[16ch]"
             text="Learning should feel human."
             highlight={["human"]}
           />
@@ -110,7 +110,7 @@ export default async function AboutPage() {
             <SectionLabel index="04">Mission</SectionLabel>
           </div>
           <h2 id="mission-heading" data-reveal className="t-h2 mt-6">
-            Five verbs we work by.
+            Our mission
           </h2>
           <ul data-reveal="stagger" className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
             {mission.map((m, i) => (
@@ -152,7 +152,7 @@ export default async function AboutPage() {
               <SectionLabel index="06">Capabilities</SectionLabel>
             </div>
             <h2 id="capabilities-heading" data-reveal className="t-h2 mt-6">
-              One team, end to end.
+              What we do
             </h2>
             <ul data-reveal="stagger" className="mt-8 border-t border-line">
               {services.map((s) => (
@@ -168,7 +168,7 @@ export default async function AboutPage() {
               <SectionLabel index="07">Principles</SectionLabel>
             </div>
             <h2 data-reveal className="t-h2 mt-6">
-              How we work.
+              How we work
             </h2>
             <dl data-reveal="stagger" className="mt-8 space-y-8">
               {pillars.map((p) => (

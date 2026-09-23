@@ -13,9 +13,9 @@ export const projects: Project[] = [
     year: "2026",
     status: "Live",
     summary:
-      "Our own identity and flagship website — a gateway mark turned into a complete visual and motion language.",
+      "Our own identity and website — a clear, professional presence built around the gateway mark.",
     services: ["Branding", "UI/UX Design", "Web Development"],
-    technology: ["Next.js", "TypeScript", "Tailwind CSS", "GSAP", "Lenis"],
+    technology: ["Next.js", "TypeScript", "Tailwind CSS"],
     cover: "gateway",
     sections: [
       {
@@ -43,7 +43,7 @@ export const projects: Project[] = [
             items: [
               "Explain six services without a wall of cards.",
               "Show craft through the site itself, not claims about it.",
-              "Keep premium motion fast on mid-range phones.",
+              "Keep every page fast on mid-range phones.",
               "Design an architecture that can grow into an Academy.",
             ],
           },
@@ -52,32 +52,32 @@ export const projects: Project[] = [
       {
         id: "approach",
         label: "The Approach",
-        heading: "Let the gateway carry the story.",
+        heading: "Clarity over decoration.",
         body: [
           {
             type: "p",
-            text: "Instead of treating the logo as a badge in the corner, we made the gateway the organising idea of the whole experience. It opens in the hero, frames page transitions and closes at the end of the page. Every animation had to describe passing through a threshold — nothing moves just to move.",
+            text: "We organised the site around what visitors need to decide: what we do, what we have built, how we work and how to get in touch. The gateway mark gives the brand a consistent identity, while layout and typography do the work of explaining.",
           },
           {
             type: "quote",
-            text: "Animation should communicate hierarchy, not exist merely because it looks cool.",
+            text: "A business website should make the next step obvious.",
           },
         ],
       },
       {
         id: "design",
         label: "Design",
-        heading: "Cinematic Swiss, in two themes.",
+        heading: "A consistent visual system.",
         body: [
           {
             type: "p",
-            text: "An obsidian canvas lit by electric blue and cyan gives the storytelling sections depth, while long-form reading — case studies and insights — switches to a crisp editorial light theme. Manrope provides the confident display voice, and JetBrains Mono marks indices, stages and metadata.",
+            text: "A deep navy palette with electric blue accents carries the brand, while long-form reading — case studies and insights — uses a clean light theme. Manrope provides a confident, readable typeface throughout.",
           },
           {
             type: "ul",
             items: [
               "Two-plane isometric gateway mark with a four-point spark.",
-              "Fluid type scale from 12px micro labels to 120px display.",
+              "Fluid type scale that adapts from phones to large screens.",
               "12-column grid with an 8-point spatial rhythm.",
               "Colour tokens tuned so body copy clears WCAG AA contrast.",
             ],
@@ -87,16 +87,16 @@ export const projects: Project[] = [
       {
         id: "development",
         label: "Development",
-        heading: "Static by default, animated on purpose.",
+        heading: "Fast, static and maintainable.",
         body: [
           {
             type: "p",
-            text: "The site is built with Next.js and TypeScript in strict mode. Pages are statically generated, and animation code is isolated in small reusable utilities — reveal, text reveal, magnetic and parallax — so sections stay readable and motion stays consistent.",
+            text: "The site is built with Next.js and TypeScript in strict mode. Pages are statically generated and content is kept separate from layout, so pages load quickly and are straightforward to update.",
           },
           {
             type: "ul",
             items: [
-              "GSAP ScrollTrigger synchronised with Lenis smooth scrolling.",
+              "Reusable components shared across every page.",
               "Generated vector artwork instead of heavy imagery.",
               "Validated project-brief API with spam protection.",
               "Structured data, sitemap and per-page Open Graph images.",
@@ -107,11 +107,11 @@ export const projects: Project[] = [
       {
         id: "experience",
         label: "Experience",
-        heading: "Motion that respects the visitor.",
+        heading: "Accessible on every device.",
         body: [
           {
             type: "p",
-            text: "Custom cursor states appear only for precise pointers. On touch devices, interactions are designed for thumbs rather than scaled down from desktop. When a visitor prefers reduced motion, smooth scrolling, parallax and cursor effects switch off entirely while every piece of content stays available.",
+            text: "Layouts are designed for phones first, with keyboard navigation, visible focus states and sufficient colour contrast throughout. Animation is limited to brief fades and switches off entirely for visitors who prefer reduced motion.",
           },
         ],
       },
@@ -122,7 +122,7 @@ export const projects: Project[] = [
         body: [
           {
             type: "p",
-            text: "The result is a single system — brand, components, motion and content model — that we can extend with new case studies, articles and eventually the Academy without redesigning the core. Performance and engagement will be reported here once there is real data to share.",
+            text: "The result is a single system — brand, components and content model — that we can extend with new case studies, articles and eventually the Academy without redesigning the core. Performance and engagement will be reported here once there is real data to share.",
           },
         ],
       },
@@ -130,7 +130,7 @@ export const projects: Project[] = [
     gallery: [
       { caption: "Gateway mark construction", art: "system" },
       { caption: "Type scale & tokens", art: "type" },
-      { caption: "Gateway motion choreography", art: "motion" },
+      { caption: "Gateway mark states", art: "motion" },
       { caption: "12-column architectural grid", art: "grid" },
     ],
   },

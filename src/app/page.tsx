@@ -1,9 +1,9 @@
 import { HomeHero } from "@/components/hero/HomeHero";
 import { AccessNetwork } from "@/components/home/AccessNetwork";
-import { ProcessScroll } from "@/components/home/ProcessScroll";
+import { ProcessSteps } from "@/components/home/ProcessSteps";
 import { ProjectCard } from "@/components/projects/ProjectCard";
 import { ServicesExplorer } from "@/components/services/ServicesExplorer";
-import { TransitionLink } from "@/components/transitions/TransitionLink";
+import Link from "next/link";
 import { CtaBand } from "@/components/ui/CtaBand";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { SplitStatement } from "@/components/ui/SplitStatement";
@@ -24,7 +24,7 @@ export default async function HomePage() {
           </div>
           <SplitStatement
             as="h2"
-            className="mt-10 max-w-[22ch] text-[clamp(2rem,5vw,4.5rem)] leading-[1.08] font-bold tracking-[-0.03em]"
+            className="mt-8 max-w-[26ch] text-[clamp(1.75rem,3.5vw,3rem)] leading-[1.15] font-bold tracking-[-0.02em]"
             text="Technology should not be complicated. Great digital experiences make it feel effortless."
             highlight={["effortless"]}
           />
@@ -43,9 +43,9 @@ export default async function HomePage() {
                 What we build — and how it helps.
               </h2>
             </div>
-            <TransitionLink href="/services" data-reveal className="link-cta">
+            <Link href="/services" data-reveal className="link-cta">
               All services <span className="arrow">→</span>
-            </TransitionLink>
+            </Link>
           </div>
           <ServicesExplorer services={services} />
         </div>
@@ -66,9 +66,9 @@ export default async function HomePage() {
                 Digital experiences built for ambitious people and businesses.
               </p>
             </div>
-            <TransitionLink href="/work" data-reveal className="link-cta">
+            <Link href="/work" data-reveal className="link-cta">
               All work <span className="arrow">→</span>
-            </TransitionLink>
+            </Link>
           </div>
           <div className="grid gap-20">
             {projects.map((p, i) => (
@@ -101,7 +101,7 @@ export default async function HomePage() {
       </section>
 
       {/* 05 — Process */}
-      <ProcessScroll steps={processSteps} />
+      <ProcessSteps steps={processSteps} />
 
       {/* 06 — Why work with us */}
       <section className="section" aria-labelledby="why-heading">

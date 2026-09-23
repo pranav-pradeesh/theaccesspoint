@@ -24,9 +24,18 @@ export const siteConfig = {
   description:
     "The Access Point builds websites, software, brands and digital experiences where technology meets creativity — and makes technical knowledge accessible.",
   url: resolveSiteUrl(),
-  // TODO(content): confirm the public contact address before launch.
-  email: "hello@theaccesspoint.com",
-  location: "India",
+  // Contact details from the company's published site (theaccesspoint.in, 2017) — confirm they're current before launch.
+  email: "theaccesspoint@outlook.com",
+  phone: { display: "+91 88381 57323", href: "tel:+918838157323" },
+  location: "Coimbatore, India",
+  address: {
+    lines: ["No. 2, Visweswarraya Street", "Sai Baba Colony, K.K. Pudur Post", "Coimbatore 641038"],
+    street: "No. 2, Visweswarraya Street, Sai Baba Colony, K.K. Pudur Post",
+    locality: "Coimbatore",
+    region: "Tamil Nadu",
+    postalCode: "641038",
+    country: "IN",
+  },
   // Only verified profiles belong here; the footer renders nothing when empty.
   socials: [] as { label: string; href: string }[],
 } as const;
