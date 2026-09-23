@@ -60,12 +60,11 @@ export const services: Service[] = [
     slug: "technical-education",
     index: "06",
     title: "Technical Education",
-    summary: "Workshops and training that make technology understandable.",
+    summary: "Hands-on courses in programming, animation, networking and cloud.",
     description:
-      "Our roots are in making technical knowledge accessible. We are shaping workshops, training and learning resources — the foundation of a future Access Point Academy.",
-    offerings: ["Workshops", "Technical training", "Courses", "Learning resources"],
-    deliverables: ["Team workshops", "Custom curricula", "Hands-on labs", "Learning materials"],
+      "Our roots are in making technical knowledge accessible. We run practical training courses — from Java, Android, PHP and .NET to animation, hardware and networking, and cloud computing.",
+    offerings: ["Programming courses", "Web & mobile development", "Animation", "Hardware & networking", "Cloud computing"],
+    deliverables: ["Instructor-led classes", "Hands-on practice", "Project work", "Course guidance"],
     visual: "education",
-    upcoming: true,
   },
 ];

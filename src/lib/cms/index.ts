@@ -6,11 +6,12 @@
  * means reimplementing this file against the CMS client — pages don't change.
  */
 import { articles } from "./content/articles";
+import { courses } from "./content/courses";
 import { projects } from "./content/projects";
 import { services } from "./content/services";
-import type { Article, ArticleCategory, Project, Service } from "./types";
+import type { Article, ArticleCategory, Course, Project, Service } from "./types";
 
-export type { Article, ArticleCategory, Project, Service } from "./types";
+export type { Article, ArticleCategory, Course, CourseCategory, Project, Service } from "./types";
 export * from "./content/company";
 
 export const articleCategories: ArticleCategory[] = [
@@ -24,6 +25,10 @@ export const articleCategories: ArticleCategory[] = [
 
 export async function getServices(): Promise<Service[]> {
   return services;
+}
+
+export async function getCourses(): Promise<Course[]> {
+  return courses;
 }
 
 export async function getProjects(): Promise<Project[]> {

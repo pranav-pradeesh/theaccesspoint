@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { AccessNetwork } from "@/components/home/AccessNetwork";
 import { CtaBand } from "@/components/ui/CtaBand";
 import { PageHero } from "@/components/ui/PageHero";
@@ -198,7 +199,12 @@ export default async function AboutPage() {
                 technical education feel human. It is in the concept stage today, and we&apos;re building it
                 deliberately, as its own product.
               </p>
-              <p className="mt-6 text-fg-3">We&apos;ll share progress in Insights as it develops.</p>
+              <p className="mt-6 text-fg-2">
+                Our classroom training courses run today at our Coimbatore centre.{" "}
+                <Link href="/training" className="link-cta text-fg">
+                  View courses <span className="arrow">→</span>
+                </Link>
+              </p>
             </div>
           </div>
         </div>

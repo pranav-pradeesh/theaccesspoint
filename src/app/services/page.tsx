@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ProcessSteps } from "@/components/home/ProcessSteps";
 import { CtaBand } from "@/components/ui/CtaBand";
 import { PageHero } from "@/components/ui/PageHero";
@@ -61,6 +62,11 @@ export default async function ServicesPage() {
               <p data-reveal className="t-lead mt-6 text-fg-2">
                 {s.description}
               </p>
+              {s.slug === "technical-education" && (
+                <Link href="/training" data-reveal className="btn btn-secondary mt-6">
+                  View all courses <span className="arrow">→</span>
+                </Link>
+              )}
               <div data-reveal className="mt-10 grid gap-8 sm:grid-cols-2">
                 <div>
                   <h3 className="t-micro text-fg-3">What we do</h3>

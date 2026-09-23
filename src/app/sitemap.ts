@@ -4,7 +4,7 @@ import { absoluteUrl } from "@/lib/site";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [projects, articles] = await Promise.all([getProjects(), getArticles()]);
-  const pages = ["/", "/work", "/services", "/about", "/insights", "/contact"].map((path) => ({
+  const pages = ["/", "/work", "/services", "/training", "/about", "/insights", "/contact"].map((path) => ({
     url: absoluteUrl(path),
     changeFrequency: "monthly" as const,
     priority: path === "/" ? 1 : 0.8,

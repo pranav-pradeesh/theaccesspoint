@@ -43,6 +43,7 @@ export const siteConfig = {
 export const primaryNav = [
   { href: "/work", label: "Work" },
   { href: "/services", label: "Services" },
+  { href: "/training", label: "Training" },
   { href: "/about", label: "About" },
   { href: "/insights", label: "Insights" },
 ] as const;

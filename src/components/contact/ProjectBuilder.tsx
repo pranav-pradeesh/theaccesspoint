@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { submitToWeb3Forms } from "@/lib/forms/web3forms";
 import { siteConfig } from "@/lib/site";
 import { budgets, leadSchema, projectTypes, stepFields, timelines, type LeadInput } from "@/lib/validation/lead";
 
@@ -15,7 +16,6 @@ export function ProjectBuilder() {
   const [data, setData] = useState<Draft>(EMPTY);
   const [errors, setErrors] = useState<Errors>({});
   const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
-  const [startedAt] = useState(() => Date.now());
   const [honeypot, setHoneypot] = useState("");
   const headingRef = useRef<HTMLHeadingElement>(null);
   const firstRender = useRef(true);
@@ -62,23 +62,30 @@ export function ProjectBuilder() {
       return;
     }
     setStatus("sending");
-    try {
-      const res = await fetch("/api/leads", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...parsed.data, website: honeypot, startedAt }),
-      });
-      const json = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string; fieldErrors?: Errors };
-      if (!res.ok || !json.ok) {
-        setErrors({ ...(json.fieldErrors ?? {}), form: json.error ?? "Something went wrong. Please try again." });
-        setStatus("idle");
-        return;
-      }
-      setStatus("sent");
-    } catch {
-      setErrors({ form: "We couldn't reach the server. Check your connection and try again." });
+    const d = parsed.data;
+    const result = await submitToWeb3Forms({
+      subject: `New project brief: ${d.projectType} — ${d.name}`,
+      fromName: "The Access Point website",
+      replyTo: d.email,
+      botcheck: honeypot,
+      fields: {
+        "Enquiry type": "Project brief",
+        Name: d.name,
+        Email: d.email,
+        Phone: d.phone || "—",
+        Company: d.company || "—",
+        "Project type": d.projectType,
+        Budget: d.budget,
+        Timeline: d.timeline,
+        Description: d.description,
+      },
+    });
+    if (!result.ok) {
+      setErrors({ form: result.error });
       setStatus("idle");
+      return;
     }
+    setStatus("sent");
   };
 
   const onSubmit = (e: React.FormEvent) => {
