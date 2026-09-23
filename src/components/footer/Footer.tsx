@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Logo } from "@/components/brand/Logo";
-import { primaryNav, siteConfig } from "@/lib/site";
+import { footerNav, siteConfig } from "@/lib/site";
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -17,7 +17,7 @@ export function Footer() {
         <nav aria-label="Footer">
           <h2 className="text-sm font-semibold text-fg">Pages</h2>
           <ul className="mt-3 space-y-2 text-sm">
-            {[...primaryNav, { href: "/contact", label: "Contact" }].map((l) => (
+            {footerNav.map((l) => (
               <li key={l.href}>
                 <Link href={l.href} className="text-fg-2 hover:text-fg">
                   {l.label}

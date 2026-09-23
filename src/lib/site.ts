@@ -36,6 +36,26 @@ export const siteConfig = {
     postalCode: "641038",
     country: "IN",
   },
+  // Subjects the business works in; used in structured data and llms.txt.
+  knowsAbout: [
+    "Web development",
+    "Web hosting",
+    "Mobile app development",
+    "Software development",
+    "UI/UX design",
+    "Graphic design",
+    "Branding",
+    "Search engine optimisation",
+    "Digital marketing",
+    "IT training",
+    "Java",
+    "Android",
+    "PHP",
+    ".NET",
+    "Animation",
+    "Computer hardware and networking",
+    "Cloud computing",
+  ],
   // Only verified profiles belong here; the footer renders nothing when empty.
   socials: [] as { label: string; href: string }[],
 } as const;
@@ -44,6 +64,12 @@ export const primaryNav = [
   { href: "/services", label: "Services" },
   { href: "/training", label: "Training" },
   { href: "/about", label: "About" },
+] as const;
+
+export const footerNav = [
+  ...primaryNav,
+  { href: "/faq", label: "FAQ" },
+  { href: "/contact", label: "Contact" },
 ] as const;
 
 export function absoluteUrl(path = "/") {

@@ -32,8 +32,9 @@ Node 20.9+ is required.
 
 ```text
 src/
-├── app/                  routes: /, /services, /training, /about, /contact,
-│                         sitemap, robots, OG image
+├── app/                  routes: /, /services, /services/[slug], /training,
+│                         /training/[slug], /about, /faq, /contact,
+│                         sitemap, robots, llms.txt, OG images
 ├── components/           brand, navigation, footer, contact, training, loader, ui
 └── lib/
     ├── cms/              content layer (see below)
@@ -46,12 +47,25 @@ src/
 
 Pages read content through the async functions in `src/lib/cms/index.ts`, which currently return typed data from `src/lib/cms/content/*.ts`. Moving to a headless CMS later means reimplementing that file; pages don't change.
 
-- **Services:** `content/services.ts`
-- **Training courses:** `content/courses.ts`. For courses run as affiliated programmes, add `affiliation: { partner, certificate }`; the Training page then shows an "Affiliated programme" badge with those details.
+- **Services:** `content/services.ts`. Each service (except Training, which links to `/training`) gets its own page with offerings, audience, process and FAQs.
+- **Training courses:** `content/courses.ts`. Each course gets its own page with an overview, syllabus modules, outcomes, prerequisites and FAQs. **The syllabus modules were drafted from each course's published topics: check them against what is actually taught.** For courses run as affiliated programmes, add `affiliation: { partner, certificate }`; the Training page then shows an "Affiliated programme" badge with those details.
+- **General FAQs:** `content/faqs.ts` (the `/faq` page; questions marked `featured` also appear on the home page)
 - **Values and mission:** `content/company.ts`
 - **Contact details:** `src/lib/site.ts`. The email, phone and Coimbatore address come from the company's 2017 site; confirm they are current. Add only verified social profiles.
 
 Only publish real information. There is no portfolio or blog yet; add them once there are real projects and articles to show.
+
+### Search and answer engines (SEO, GEO, AEO)
+
+- Every page has its own title, meta description, canonical URL and Open Graph image. Course and service titles target local searches ("Java Course in Coimbatore").
+- Structured data (JSON-LD): the business as `LocalBusiness` + `EducationalOrganization`, `Service` and `Course` (with syllabus and onsite course instance) on detail pages, `FAQPage` wherever questions are shown, `BreadcrumbList` and `ItemList`.
+- Pages lead with a direct one-paragraph answer (what the service or course is), followed by question-and-answer sections, the format answer engines and AI assistants quote.
+- `/llms.txt` gives AI assistants a plain-text summary of the business, services, courses and FAQs, generated from the same content.
+- `sitemap.xml` lists every page. After launch, submit it in Google Search Console and Bing Webmaster Tools, and set up a Google Business Profile with the same name, address and phone number as `site.ts`: for local searches, that profile matters more than anything on the site.
+
+### Smooth scrolling
+
+`components/navigation/SmoothScroll.tsx` enables [Lenis](https://github.com/darkroomengineering/lenis) for mouse-wheel scrolling. Touch devices keep native scrolling, visitors with reduced motion enabled get native scrolling, and in-page links use the browser's own jump.
 
 ### Themes
 
@@ -59,4 +73,4 @@ Light and dark themes are defined as CSS variables in `src/app/globals.css` (lig
 
 ### Loader
 
-On a full page load, an inline script (`components/loader/loaderScript.ts`) shows a progress overlay driven by real resource loading (Resource Timing API) and removes it on the window `load` event. It only appears if loading takes longer than 300ms, and a 10s failsafe always releases the page. In-app navigation shows a thin top bar that completes when the new page renders. There are no other animations. The page scrollbar is hidden; scrolling works normally.
+On a full page load, an inline script (`components/loader/loaderScript.ts`) shows a progress overlay driven by real resource loading (Resource Timing API) and removes it on the window `load` event. It only appears if loading takes longer than 300ms, and a 10s failsafe always releases the page. In-app navigation shows a thin top bar that completes when the new page renders. Apart from Lenis smooth scrolling, there are no other animations. The page scrollbar is hidden; scrolling works normally.

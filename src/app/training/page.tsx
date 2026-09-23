@@ -1,9 +1,10 @@
+import Link from "next/link";
 import { CourseEnquiry } from "@/components/training/CourseEnquiry";
 import { PageHero } from "@/components/ui/PageHero";
 import { getCourses, type CourseCategory } from "@/lib/cms";
-import { breadcrumbLd, JsonLd } from "@/lib/seo/jsonld";
+import { breadcrumbLd, itemListLd, JsonLd } from "@/lib/seo/jsonld";
 import { buildMetadata } from "@/lib/seo/metadata";
-import { absoluteUrl, siteConfig } from "@/lib/site";
+import { siteConfig } from "@/lib/site";
 
 export const metadata = buildMetadata({
   title: "Training Courses",
@@ -50,7 +51,11 @@ export default async function TrainingPage() {
               <ul className="mt-6 grid gap-4 md:grid-cols-2">
                 {list.map((c) => (
                   <li key={c.slug} id={c.slug} className="card flex scroll-mt-24 flex-col p-6">
-                    <h3 className="t-h3">{c.title}</h3>
+                    <h3 className="t-h3">
+                      <Link href={`/training/${c.slug}`} className="hover:text-accent">
+                        {c.title}
+                      </Link>
+                    </h3>
                     {c.affiliation && (
                       <p className="mt-2 text-sm">
                         <span className="tag mr-2">Affiliated programme</span>
@@ -68,9 +73,14 @@ export default async function TrainingPage() {
                         </li>
                       ))}
                     </ul>
-                    <a href={`#enquire-${c.slug}`} className="link mt-auto pt-5 text-sm font-semibold">
-                      Enquire about this course
-                    </a>
+                    <div className="mt-auto flex flex-wrap gap-x-6 gap-y-2 pt-5 text-sm font-semibold">
+                      <Link href={`/training/${c.slug}`} className="link">
+                        Syllabus and details<span className="sr-only">: {c.title}</span>
+                      </Link>
+                      <a href={`#enquire-${c.slug}`} className="link">
+                        Enquire<span className="sr-only"> about {c.title}</span>
+                      </a>
+                    </div>
                   </li>
                 ))}
               </ul>
@@ -89,17 +99,7 @@ export default async function TrainingPage() {
             { name: "Home", path: "/" },
             { name: "Training", path: "/training" },
           ]),
-          ...courses.map((c) => ({
-            "@context": "https://schema.org",
-            "@type": "Course",
-            name: c.title,
-            description: c.summary,
-            url: absoluteUrl(`/training#${c.slug}`),
-            ...(c.affiliation?.certificate
-              ? { educationalCredentialAwarded: `${c.affiliation.certificate} (${c.affiliation.partner})` }
-              : {}),
-            provider: { "@type": "Organization", name: siteConfig.name, url: siteConfig.url },
-          })),
+          itemListLd("Training courses", courses.map((c) => ({ name: c.title, path: `/training/${c.slug}` }))),
         ]}
       />
     </>

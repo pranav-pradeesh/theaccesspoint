@@ -4,9 +4,11 @@ import { Footer } from "@/components/footer/Footer";
 import { NavigationProgress } from "@/components/loader/NavigationProgress";
 import { PageLoader } from "@/components/loader/PageLoader";
 import { Header } from "@/components/navigation/Header";
+import { SmoothScroll } from "@/components/navigation/SmoothScroll";
 import { JsonLd, organizationLd, websiteLd } from "@/lib/seo/jsonld";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { siteConfig } from "@/lib/site";
+import "lenis/dist/lenis.css";
 import "./globals.css";
 
 const manrope = Manrope({ subsets: ["latin"], variable: "--font-manrope", display: "swap" });
@@ -38,6 +40,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body>
         <PageLoader />
         <NavigationProgress />
+        <SmoothScroll />
         <Header />
         <main id="main" tabIndex={-1} className="outline-none">
           {children}

@@ -22,9 +22,13 @@ function validate(f: Fields): Errors {
   return e;
 }
 
-/** Course admission enquiry. "Enquire" links on course cards preselect the course via #enquire-<slug>. */
-export function CourseEnquiry({ courses }: { courses: Course[] }) {
-  const [fields, setFields] = useState<Fields>(EMPTY);
+/**
+ * Course admission enquiry. `defaultCourse` preselects a course (course pages); on the Training page,
+ * "Enquire" links preselect it via #enquire-<slug>.
+ */
+export function CourseEnquiry({ courses, defaultCourse = "" }: { courses: Course[]; defaultCourse?: string }) {
+  const initial = { ...EMPTY, course: defaultCourse };
+  const [fields, setFields] = useState<Fields>(initial);
   const [errors, setErrors] = useState<Errors>({});
   const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
   const [botcheck, setBotcheck] = useState("");
@@ -93,7 +97,7 @@ export function CourseEnquiry({ courses }: { courses: Course[] }) {
       <div className="card p-6 sm:p-8">
         {status === "sent" ? (
           <div role="status">
-                        <h2 ref={doneRef} tabIndex={-1} id="enquire-heading" className="t-h2 outline-none">
+            <h2 ref={doneRef} tabIndex={-1} id="enquire-heading" className="t-h2 outline-none">
               Thank you, {fields.name.trim().split(" ")[0]}.
             </h2>
             <p className="t-lead mt-4 text-fg-2">
@@ -104,7 +108,7 @@ export function CourseEnquiry({ courses }: { courses: Course[] }) {
               type="button"
               className="btn btn-secondary mt-8"
               onClick={() => {
-                setFields(EMPTY);
+                setFields(initial);
                 setStatus("idle");
               }}
             >
@@ -113,7 +117,7 @@ export function CourseEnquiry({ courses }: { courses: Course[] }) {
           </div>
         ) : (
           <form onSubmit={onSubmit} noValidate>
-                        <h2 id="enquire-heading" className="t-h2">
+            <h2 id="enquire-heading" className="t-h2">
               Enquire about a course
             </h2>
             <p className="mt-3 text-fg-2">
