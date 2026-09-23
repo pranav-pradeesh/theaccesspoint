@@ -1,93 +1,72 @@
 import Link from "next/link";
-import { siteConfig } from "@/lib/site";
-
-const links = [
-  { href: "/work", label: "Work" },
-  { href: "/services", label: "Services" },
-  { href: "/training", label: "Training" },
-  { href: "/about", label: "About" },
-  { href: "/insights", label: "Insights" },
-  { href: "/contact", label: "Contact" },
-];
+import { Logo } from "@/components/brand/Logo";
+import { primaryNav, siteConfig } from "@/lib/site";
 
 export function Footer() {
   const year = new Date().getFullYear();
   return (
-    <footer className="relative overflow-hidden border-t border-line bg-obsidian">
-      <div className="hairline-glow absolute inset-x-0 top-0" aria-hidden />
-      <div className="container-ap relative pt-20 pb-10 lg:pt-28">
-        <div className="grid gap-14 lg:grid-cols-12">
-          <div className="lg:col-span-6">
-            <p className="t-micro text-cyan">Gateway to Knowledge</p>
-            <p className="t-h2 mt-6 max-w-[16ch]">Technology should open doors.</p>
-            <p className="mt-6 max-w-md text-fg-2">
-              Websites, software, brands and learning — built where technology meets creativity.
-            </p>
-            <Link href="/contact" className="btn btn-primary btn-lg mt-10">
-              Start a Project <span className="arrow">→</span>
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 gap-10 sm:grid-cols-[auto_1fr_auto] sm:gap-16 lg:col-span-6 lg:pl-10">
-            <nav aria-label="Footer">
-              <p className="t-micro text-fg-3">Explore</p>
-              <ul className="mt-5 space-y-3">
-                {links.map((l) => (
-                  <li key={l.href}>
-                    <Link href={l.href} className="link-underline text-fg-2 hover:text-fg">
-                      {l.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-            <div>
-              <p className="t-micro text-fg-3">Contact</p>
-              <ul className="mt-5 space-y-3 text-fg-2">
-                <li>
-                  <a href={`mailto:${siteConfig.email}`} className="link-underline hover:text-fg">
-                    {siteConfig.email}
-                  </a>
-                </li>
-                <li>
-                  <a href={siteConfig.phone.href} className="link-underline hover:text-fg">
-                    {siteConfig.phone.display}
-                  </a>
-                </li>
-                <li>
-                  <address className="not-italic">
-                    {siteConfig.address.lines.map((line) => (
-                      <span key={line} className="block">
-                        {line}
-                      </span>
-                    ))}
-                  </address>
-                </li>
-              </ul>
-            </div>
-            {siteConfig.socials.length > 0 && (
-              <div>
-                <p className="t-micro text-fg-3">Social</p>
-                <ul className="mt-5 space-y-3">
-                  {siteConfig.socials.map((s) => (
-                    <li key={s.href}>
-                      <a href={s.href} className="link-underline text-fg-2 hover:text-fg" rel="noopener noreferrer" target="_blank">
-                        {s.label}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </div>
-        </div>
-
-        <div className="mt-16 flex flex-col gap-3 border-t border-line pt-6 text-sm text-fg-3 sm:flex-row sm:items-center sm:justify-between">
-          <p>
-            © {year} {siteConfig.name}. All rights reserved.
+    <footer className="border-t border-line bg-surface-1">
+      <div className="container-ap grid gap-10 py-12 md:grid-cols-[1.4fr_1fr_1.4fr]">
+        <div>
+          <Logo />
+          <p className="mt-4 max-w-xs text-sm text-fg-2">
+            Web development, software, design, digital marketing and IT training in Coimbatore.
           </p>
-          <p className="t-micro">Gateway to Knowledge</p>
         </div>
+
+        <nav aria-label="Footer">
+          <h2 className="text-sm font-semibold text-fg">Pages</h2>
+          <ul className="mt-3 space-y-2 text-sm">
+            {[...primaryNav, { href: "/contact", label: "Contact" }].map((l) => (
+              <li key={l.href}>
+                <Link href={l.href} className="text-fg-2 hover:text-fg">
+                  {l.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <div>
+          <h2 className="text-sm font-semibold text-fg">Contact</h2>
+          <ul className="mt-3 space-y-2 text-sm text-fg-2">
+            <li>
+              <a href={siteConfig.phone.href} className="hover:text-fg">
+                {siteConfig.phone.display}
+              </a>
+            </li>
+            <li>
+              <a href={`mailto:${siteConfig.email}`} className="hover:text-fg">
+                {siteConfig.email}
+              </a>
+            </li>
+            <li>
+              <address className="not-italic">
+                {siteConfig.address.lines.map((line) => (
+                  <span key={line} className="block">
+                    {line}
+                  </span>
+                ))}
+              </address>
+            </li>
+          </ul>
+          {siteConfig.socials.length > 0 && (
+            <ul className="mt-4 flex gap-4 text-sm">
+              {siteConfig.socials.map((s) => (
+                <li key={s.href}>
+                  <a href={s.href} className="text-fg-2 hover:text-fg" rel="noopener noreferrer" target="_blank">
+                    {s.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </div>
+      <div className="border-t border-line">
+        <p className="container-ap py-5 text-sm text-fg-3">
+          © {year} {siteConfig.name}. All rights reserved.
+        </p>
       </div>
     </footer>
   );

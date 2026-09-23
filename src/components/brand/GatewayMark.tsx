@@ -8,7 +8,7 @@ export const RIGHT_PLANE = "104,22 160,34 160,168 104,182";
 /**
  * The gateway mark: two-plane portal (navy foundation + electric entry),
  * perspective pathway (cyan) and the four-point spark.
- * `split` pushes the planes apart — 0 is closed, ~18 is the resting logo.
+ * * `split` pushes the planes apart: 0 is closed, ~18 is the resting logo.
  */
 export function GatewayMark({
   split = 16,

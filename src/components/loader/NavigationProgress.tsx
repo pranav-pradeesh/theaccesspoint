@@ -7,7 +7,7 @@ type Phase = "idle" | "loading" | "done";
 
 /**
  * Thin top bar for in-app navigation. It starts when an internal link is clicked and completes
- * when the new route has actually rendered (pathname changes) — never on a timer.
+ * when the new route has actually rendered (pathname changes), never on a timer.
  */
 export function NavigationProgress() {
   const pathname = usePathname();

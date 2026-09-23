@@ -22,9 +22,9 @@ export const siteConfig = {
   name: "The Access Point",
   descriptor: "Gateway to Knowledge",
   description:
-    "The Access Point builds websites, software, brands and digital experiences where technology meets creativity — and makes technical knowledge accessible.",
+    "The Access Point is a Coimbatore company offering web development, software, design and digital marketing services, and practical IT training courses.",
   url: resolveSiteUrl(),
-  // Contact details from the company's published site (theaccesspoint.in, 2017) — confirm they're current before launch.
+  // Contact details from the company's published site (theaccesspoint.in, 2017). Confirm they're current before launch.
   email: "theaccesspoint@outlook.com",
   phone: { display: "+91 88381 57323", href: "tel:+918838157323" },
   location: "Coimbatore, India",
@@ -41,11 +41,9 @@ export const siteConfig = {
 } as const;
 
 export const primaryNav = [
-  { href: "/work", label: "Work" },
   { href: "/services", label: "Services" },
   { href: "/training", label: "Training" },
   { href: "/about", label: "About" },
-  { href: "/insights", label: "Insights" },
 ] as const;
 
 export function absoluteUrl(path = "/") {

@@ -7,9 +7,9 @@ export const timelines = ["ASAP", "1–2 months", "2–4 months", "Flexible"] as
 
 export const leadSchema = z.object({
   projectType: z.enum(projectTypes, { error: "Choose a project type." }),
-  description: z.string({ error: "Tell us a little more — at least 20 characters." }).check(
+  description: z.string({ error: "Please add a little more detail (at least 20 characters)." }).check(
     z.trim(),
-    z.minLength(20, "Tell us a little more — at least 20 characters."),
+    z.minLength(20, "Please add a little more detail (at least 20 characters)."),
     z.maxLength(4000, "Please keep the description under 4,000 characters."),
   ),
   budget: z.enum(budgets, { error: "Choose a budget range." }),
@@ -25,12 +25,3 @@ export const leadSchema = z.object({
 });
 
 export type LeadInput = z.infer<typeof leadSchema>;
-
-/** Fields validated at each step of the project builder. */
-export const stepFields = [
-  ["projectType"],
-  ["description"],
-  ["budget"],
-  ["timeline"],
-  ["name", "email", "phone", "company"],
-] as const satisfies readonly (readonly (keyof LeadInput)[])[];

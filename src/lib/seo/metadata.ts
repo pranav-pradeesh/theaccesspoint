@@ -10,7 +10,7 @@ type Options = {
 };
 
 export function buildMetadata({ title, description = siteConfig.description, path, type = "website", publishedTime }: Options): Metadata {
-  const fullTitle = title ? `${title} — ${siteConfig.name}` : `${siteConfig.name} — ${siteConfig.descriptor}`;
+  const fullTitle = title ? `${title} | ${siteConfig.name}` : `${siteConfig.name} | IT Services & Training, Coimbatore`;
   return {
     title: fullTitle,
     description,

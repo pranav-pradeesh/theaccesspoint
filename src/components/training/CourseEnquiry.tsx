@@ -67,7 +67,7 @@ export function CourseEnquiry({ courses }: { courses: Course[] }) {
     }
     setStatus("sending");
     const result = await submitToWeb3Forms({
-      subject: `Course enquiry: ${fields.course} — ${fields.name.trim()}`,
+      subject: `Course enquiry: ${fields.course} from ${fields.name.trim()}`,
       fromName: "The Access Point website",
       replyTo: fields.email.trim(),
       botcheck,
@@ -77,7 +77,7 @@ export function CourseEnquiry({ courses }: { courses: Course[] }) {
         Name: fields.name.trim(),
         Email: fields.email.trim(),
         Phone: fields.phone.trim(),
-        Message: fields.message.trim() || "—",
+        Message: fields.message.trim() || "Not given",
       },
     });
     if (!result.ok) {
@@ -90,11 +90,10 @@ export function CourseEnquiry({ courses }: { courses: Course[] }) {
 
   return (
     <section ref={sectionRef} id="enquire" aria-labelledby="enquire-heading" className="scroll-mt-28">
-      <div className="card-gateway p-6 hover:translate-y-0! sm:p-8 lg:p-12">
+      <div className="card p-6 sm:p-8">
         {status === "sent" ? (
           <div role="status">
-            <p className="t-micro text-cyan">Enquiry received</p>
-            <h2 ref={doneRef} tabIndex={-1} id="enquire-heading" className="t-h2 mt-4 outline-none">
+                        <h2 ref={doneRef} tabIndex={-1} id="enquire-heading" className="t-h2 outline-none">
               Thank you, {fields.name.trim().split(" ")[0]}.
             </h2>
             <p className="t-lead mt-4 text-fg-2">
@@ -114,16 +113,15 @@ export function CourseEnquiry({ courses }: { courses: Course[] }) {
           </div>
         ) : (
           <form onSubmit={onSubmit} noValidate>
-            <p className="t-micro text-cyan">Admissions</p>
-            <h2 id="enquire-heading" className="t-h2 mt-4">
+                        <h2 id="enquire-heading" className="t-h2">
               Enquire about a course
             </h2>
             <p className="mt-3 text-fg-2">
-              Tell us which course you&apos;re interested in and we&apos;ll get back to you with batch timings, duration
-              and fees.
+              Tell us which course you&apos;re interested in and we&apos;ll contact you with batch timings, duration and
+              fees.
             </p>
 
-            {/* Honeypot — hidden from people and assistive tech */}
+            {/* Honeypot: hidden from people and assistive technology */}
             <div aria-hidden className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
               <label>
                 Leave empty
@@ -142,7 +140,7 @@ export function CourseEnquiry({ courses }: { courses: Course[] }) {
                   onChange={(e) => set("course", e.target.value)}
                   aria-invalid={!!errors.course}
                   aria-describedby={errors.course ? "enquiry-course-error" : undefined}
-                  className="field appearance-none bg-surface-2"
+                  className="field"
                 >
                   <option value="">Select a course…</option>
                   {courses.map((c) => (
@@ -193,7 +191,7 @@ export function CourseEnquiry({ courses }: { courses: Course[] }) {
             </div>
 
             {errors.form && (
-              <div role="alert" className="mt-6 rounded-[10px] border border-[#ff6b6b]/40 bg-[#ff6b6b]/10 p-4 text-sm">
+              <div role="alert" className="mt-6 rounded-lg border border-[#ff6b6b]/40 bg-[#ff6b6b]/10 p-4 text-sm">
                 {errors.form}{" "}
                 <a className="underline underline-offset-4" href={`mailto:${siteConfig.email}`}>
                   {siteConfig.email}
@@ -205,8 +203,8 @@ export function CourseEnquiry({ courses }: { courses: Course[] }) {
               </div>
             )}
 
-            <button type="submit" className="btn btn-primary btn-lg mt-8 w-full sm:w-auto" disabled={status === "sending"}>
-              {status === "sending" ? "Sending…" : "Send enquiry"} <span className="arrow">→</span>
+            <button type="submit" className="btn btn-primary mt-8 w-full sm:w-auto" disabled={status === "sending"}>
+              {status === "sending" ? "Sending…" : "Send enquiry"}
             </button>
           </form>
         )}
@@ -217,8 +215,9 @@ export function CourseEnquiry({ courses }: { courses: Course[] }) {
 
 function Label({ htmlFor, required, children }: { htmlFor: string; required?: boolean; children: React.ReactNode }) {
   return (
-    <label htmlFor={htmlFor} className="mb-2 block text-sm font-semibold">
-      {children} {required ? <span className="text-cyan">*</span> : <span className="font-normal text-fg-3">(optional)</span>}
+    <label htmlFor={htmlFor} className="mb-1.5 block text-sm font-semibold">
+      {children}
+      {required && <span className="text-cyan"> *</span>}
     </label>
   );
 }

@@ -1,130 +1,156 @@
-import { HomeHero } from "@/components/hero/HomeHero";
-import { AccessNetwork } from "@/components/home/AccessNetwork";
-import { ProcessSteps } from "@/components/home/ProcessSteps";
-import { ProjectCard } from "@/components/projects/ProjectCard";
-import { ServicesExplorer } from "@/components/services/ServicesExplorer";
 import Link from "next/link";
-import { CtaBand } from "@/components/ui/CtaBand";
-import { SectionLabel } from "@/components/ui/SectionLabel";
-import { SplitStatement } from "@/components/ui/SplitStatement";
-import { getProjects, getServices, pillars, processSteps } from "@/lib/cms";
+import { getCourses, getServices } from "@/lib/cms";
+import { siteConfig } from "@/lib/site";
 
 export default async function HomePage() {
-  const [services, projects] = await Promise.all([getServices(), getProjects()]);
+  const [services, courses] = await Promise.all([getServices(), getCourses()]);
 
   return (
     <>
-      <HomeHero />
-
-      {/* 01 — Brand statement */}
-      <section className="section">
-        <div className="container-ap">
-          <div data-reveal>
-            <SectionLabel index="01">Belief</SectionLabel>
-          </div>
-          <SplitStatement
-            as="h2"
-            className="mt-8 max-w-[26ch] text-[clamp(1.75rem,3.5vw,3rem)] leading-[1.15] font-bold tracking-[-0.02em]"
-            text="Technology should not be complicated. Great digital experiences make it feel effortless."
-            highlight={["effortless"]}
-          />
-        </div>
-      </section>
-
-      {/* 02 — Services */}
-      <section className="section pt-0!" aria-labelledby="services-heading">
-        <div className="container-ap">
-          <div className="mb-14 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-            <div>
-              <div data-reveal>
-                <SectionLabel index="02">Services</SectionLabel>
-              </div>
-              <h2 id="services-heading" data-reveal className="t-h1 mt-6 max-w-[16ch]">
-                What we build — and how it helps.
-              </h2>
-            </div>
-            <Link href="/services" data-reveal className="link-cta">
-              All services <span className="arrow">→</span>
-            </Link>
-          </div>
-          <ServicesExplorer services={services} />
-        </div>
-      </section>
-
-      {/* 03 — Selected work */}
-      <section id="work" className="section scroll-mt-20" aria-labelledby="work-heading">
-        <div className="container-ap">
-          <div className="mb-14 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-            <div>
-              <div data-reveal>
-                <SectionLabel index="03">Work</SectionLabel>
-              </div>
-              <h2 id="work-heading" data-reveal className="t-h1 mt-6">
-                Selected work
-              </h2>
-              <p data-reveal className="t-lead mt-5 max-w-xl text-fg-2">
-                Digital experiences built for ambitious people and businesses.
-              </p>
-            </div>
-            <Link href="/work" data-reveal className="link-cta">
-              All work <span className="arrow">→</span>
-            </Link>
-          </div>
-          <div className="grid gap-20">
-            {projects.map((p, i) => (
-              <ProjectCard key={p.slug} project={p} index={i} large />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 04 — Access philosophy */}
-      <section className="section relative overflow-hidden" aria-labelledby="access-heading">
-        <div className="pointer-events-none absolute inset-0" style={{ background: "var(--ambient-glow)" }} aria-hidden />
-        <div className="container-ap relative grid items-center gap-12 lg:grid-cols-12">
-          <div className="lg:col-span-5">
-            <div data-reveal>
-              <SectionLabel index="04">Philosophy</SectionLabel>
-            </div>
-            <h2 id="access-heading" data-reveal className="t-h1 mt-6">
-              Access should never be the barrier.
-            </h2>
-            <p data-reveal className="mt-6 max-w-md text-fg-2">
-              We sit at the point where these ideas meet. Every project we take on — a website, a product, a workshop —
-              is a way of opening one of these doors a little wider.
+      {/* Intro */}
+      <section className="border-b border-line pt-32 pb-16 lg:pt-40 lg:pb-20">
+        <div className="container-ap grid gap-12 lg:grid-cols-[1.5fr_1fr] lg:items-center">
+          <div>
+            <p className="eyebrow">Coimbatore, Tamil Nadu</p>
+            <h1 className="mt-3 text-[clamp(2.25rem,5vw,3.5rem)] leading-[1.1] font-bold tracking-[-0.02em]">
+              Web development, software and IT training.
+            </h1>
+            <p className="t-lead mt-5 max-w-xl">
+              The Access Point builds websites, software and brands for businesses, and runs practical training courses
+              for students and working professionals.
             </p>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <Link href="/contact" className="btn btn-primary">
+                Discuss a project
+              </Link>
+              <Link href="/training" className="btn btn-secondary">
+                View training courses
+              </Link>
+            </div>
           </div>
-          <div className="lg:col-span-7">
-            <AccessNetwork />
+
+          <div className="card p-6">
+            <h2 className="text-base font-semibold">Get in touch</h2>
+            <dl className="mt-4 space-y-4 text-sm">
+              <div>
+                <dt className="text-fg-3">Phone</dt>
+                <dd className="mt-0.5">
+                  <a href={siteConfig.phone.href} className="text-base font-semibold hover:text-cyan">
+                    {siteConfig.phone.display}
+                  </a>
+                </dd>
+              </div>
+              <div>
+                <dt className="text-fg-3">Email</dt>
+                <dd className="mt-0.5">
+                  <a href={`mailto:${siteConfig.email}`} className="hover:text-cyan">
+                    {siteConfig.email}
+                  </a>
+                </dd>
+              </div>
+              <div>
+                <dt className="text-fg-3">Address</dt>
+                <dd className="mt-0.5 text-fg-2">
+                  <address className="not-italic">
+                    {siteConfig.address.lines.map((line) => (
+                      <span key={line} className="block">
+                        {line}
+                      </span>
+                    ))}
+                  </address>
+                </dd>
+              </div>
+            </dl>
           </div>
         </div>
       </section>
 
-      {/* 05 — Process */}
-      <ProcessSteps steps={processSteps} />
-
-      {/* 06 — Why work with us */}
-      <section className="section" aria-labelledby="why-heading">
+      {/* Services */}
+      <section className="section" aria-labelledby="services-heading">
         <div className="container-ap">
-          <div data-reveal>
-            <SectionLabel index="06">Why us</SectionLabel>
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <h2 id="services-heading" className="t-h2">
+                Services
+              </h2>
+              <p className="mt-2 text-fg-2">What we do for businesses and organisations.</p>
+            </div>
+            <Link href="/services" className="link text-sm font-semibold">
+              All services
+            </Link>
           </div>
-          <h2 id="why-heading" data-reveal className="t-h1 mt-6 max-w-[18ch]">
-            How we work with you.
-          </h2>
-          <ul data-reveal="stagger" className="mt-14 grid gap-px overflow-hidden rounded-[18px] border border-line bg-line sm:grid-cols-2 lg:grid-cols-5">
-            {pillars.map((p, i) => (
-              <li key={p.title} className="flex flex-col bg-obsidian p-7 transition-colors duration-300 hover:bg-surface-2">
-                <span className="t-micro text-fg-3">0{i + 1}</span>
-                <h3 className="t-h4 mt-10">{p.title}</h3>
-                <p className="mt-3 text-[15px] text-fg-2">{p.line}</p>
+          <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {services.map((s) => (
+              <li key={s.slug}>
+                <Link
+                  href={s.slug === "technical-education" ? "/training" : `/services#${s.slug}`}
+                  className="card block h-full p-6 transition-colors hover:border-line-strong"
+                >
+                  <h3 className="t-h3">{s.title}</h3>
+                  <p className="mt-2 text-fg-2">{s.summary}</p>
+                </Link>
               </li>
             ))}
           </ul>
         </div>
       </section>
 
-      <CtaBand />
+      {/* Training */}
+      <section className="section border-y border-line bg-surface-1" aria-labelledby="training-heading">
+        <div className="container-ap">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <h2 id="training-heading" className="t-h2">
+                Training courses
+              </h2>
+              <p className="mt-2 max-w-xl text-fg-2">
+                Classroom courses at our Coimbatore centre. Contact us for batch timings, duration and fees.
+              </p>
+            </div>
+            <Link href="/training" className="link text-sm font-semibold">
+              Course details and admission
+            </Link>
+          </div>
+          <ul className="mt-8 grid gap-x-8 gap-y-1 sm:grid-cols-2 lg:grid-cols-3">
+            {courses.map((c) => (
+              <li key={c.slug} className="border-b border-line">
+                <Link href={`/training#${c.slug}`} className="flex items-center justify-between gap-4 py-3.5 hover:text-cyan">
+                  <span className="font-medium">{c.title}</span>
+                  <span className="text-sm text-fg-3">{c.category}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* Contact */}
+      <section className="section" aria-labelledby="contact-heading">
+        <div className="container-ap">
+          <div className="card flex flex-col gap-6 p-8 md:flex-row md:items-center md:justify-between">
+            <div>
+              <h2 id="contact-heading" className="t-h2">
+                Talk to us
+              </h2>
+              <p className="mt-2 text-fg-2">
+                Call{" "}
+                <a href={siteConfig.phone.href} className="link">
+                  {siteConfig.phone.display}
+                </a>{" "}
+                or send us your requirements and we&apos;ll get back to you.
+              </p>
+            </div>
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <Link href="/contact" className="btn btn-primary">
+                Discuss a project
+              </Link>
+              <Link href="/training#enquire" className="btn btn-secondary">
+                Course enquiry
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   );
 }
