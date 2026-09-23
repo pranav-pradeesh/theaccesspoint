@@ -23,7 +23,7 @@ Node 20.9+ is required.
 
 | Variable                                    | Purpose                                                                                     |
 | ------------------------------------------- | ------------------------------------------------------------------------------------------- |
-| `NEXT_PUBLIC_SITE_URL`                      | Canonical URLs, sitemap, Open Graph. Defaults to `https://theaccesspoint.com`.              |
+| `NEXT_PUBLIC_SITE_URL`                      | Canonical URLs, sitemap, Open Graph. Optional: falls back to Vercel's production domain, then `https://theaccesspoint.com`. |
 | `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` | Stores project briefs in the `leads` table (`supabase/migrations/0001_leads.sql`). Server-only. |
 | `LEAD_WEBHOOK_URL`                          | Optional: also POSTs each brief as JSON (Slack workflow, Zapier, CRM…).                     |
 | `NEXT_PUBLIC_PLAUSIBLE_DOMAIN`              | Enables cookieless Plausible analytics. Empty = no analytics script at all.                 |
