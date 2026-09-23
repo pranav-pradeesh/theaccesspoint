@@ -24,13 +24,13 @@ export default function ContactPage() {
           <div className="space-y-8">
             <div>
               <h2 className="text-sm font-semibold text-fg-3">Phone</h2>
-              <a href={siteConfig.phone.href} className="mt-1 block text-lg font-semibold hover:text-cyan">
+              <a href={siteConfig.phone.href} className="mt-1 block text-lg font-semibold hover:text-accent">
                 {siteConfig.phone.display}
               </a>
             </div>
             <div>
               <h2 className="text-sm font-semibold text-fg-3">Email</h2>
-              <a href={`mailto:${siteConfig.email}`} className="mt-1 block hover:text-cyan">
+              <a href={`mailto:${siteConfig.email}`} className="mt-1 block hover:text-accent">
                 {siteConfig.email}
               </a>
             </div>

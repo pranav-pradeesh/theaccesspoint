@@ -18,18 +18,22 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#070b14",
-  colorScheme: "dark",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#070b14" },
+  ],
+  colorScheme: "light dark",
 };
 
-// Lets the page loader render only when JavaScript is available.
-const jsFlag = `document.documentElement.classList.add('js')`;
+// Runs before first paint: marks JS as available (for the page loader) and applies the saved
+// theme, or the system theme when none is saved, so there is no flash of the wrong colours.
+const bootScript = `(function(){var r=document.documentElement;r.classList.add('js');var t=null;try{t=localStorage.getItem('theme')}catch(e){}if(t!=='light'&&t!=='dark')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';r.dataset.theme=t})();`;
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en-IN" className={manrope.variable} suppressHydrationWarning>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: jsFlag }} />
+        <script dangerouslySetInnerHTML={{ __html: bootScript }} />
       </head>
       <body>
         <PageLoader />

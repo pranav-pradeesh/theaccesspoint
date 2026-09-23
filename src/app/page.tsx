@@ -35,7 +35,7 @@ export default async function HomePage() {
               <div>
                 <dt className="text-fg-3">Phone</dt>
                 <dd className="mt-0.5">
-                  <a href={siteConfig.phone.href} className="text-base font-semibold hover:text-cyan">
+                  <a href={siteConfig.phone.href} className="text-base font-semibold hover:text-accent">
                     {siteConfig.phone.display}
                   </a>
                 </dd>
@@ -43,7 +43,7 @@ export default async function HomePage() {
               <div>
                 <dt className="text-fg-3">Email</dt>
                 <dd className="mt-0.5">
-                  <a href={`mailto:${siteConfig.email}`} className="hover:text-cyan">
+                  <a href={`mailto:${siteConfig.email}`} className="hover:text-accent">
                     {siteConfig.email}
                   </a>
                 </dd>
@@ -114,7 +114,7 @@ export default async function HomePage() {
           <ul className="mt-8 grid gap-x-8 gap-y-1 sm:grid-cols-2 lg:grid-cols-3">
             {courses.map((c) => (
               <li key={c.slug} className="border-b border-line">
-                <Link href={`/training#${c.slug}`} className="flex items-center justify-between gap-4 py-3.5 hover:text-cyan">
+                <Link href={`/training#${c.slug}`} className="flex items-center justify-between gap-4 py-3.5 hover:text-accent">
                   <span className="font-medium">{c.title}</span>
                   <span className="text-sm text-fg-3">{c.category}</span>
                 </Link>

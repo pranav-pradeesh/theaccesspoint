@@ -36,7 +36,7 @@ export default async function AboutPage() {
             <ul className="mt-6 grid gap-2 sm:grid-cols-2">
               {services.map((s) => (
                 <li key={s.slug} className="flex items-center gap-2.5">
-                  <span aria-hidden className="size-1.5 rounded-full bg-cyan" />
+                  <span aria-hidden className="size-1.5 rounded-full bg-accent" />
                   {s.title}
                 </li>
               ))}

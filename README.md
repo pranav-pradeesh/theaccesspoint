@@ -53,6 +53,10 @@ Pages read content through the async functions in `src/lib/cms/index.ts`, which 
 
 Only publish real information. There is no portfolio or blog yet; add them once there are real projects and articles to show.
 
+### Themes
+
+Light and dark themes are defined as CSS variables in `src/app/globals.css` (light on `:root`, dark on `[data-theme="dark"]`, plus a `prefers-color-scheme` fallback for visitors without JavaScript). A small script in `layout.tsx` applies the saved choice, or the system setting, before first paint so there is no flash. The header toggle (`components/navigation/ThemeToggle.tsx`) switches themes and saves the choice in `localStorage`.
+
 ### Loader
 
 On a full page load, an inline script (`components/loader/loaderScript.ts`) shows a progress overlay driven by real resource loading (Resource Timing API) and removes it on the window `load` event. It only appears if loading takes longer than 300ms, and a 10s failsafe always releases the page. In-app navigation shows a thin top bar that completes when the new page renders. There are no other animations. The page scrollbar is hidden; scrolling works normally.

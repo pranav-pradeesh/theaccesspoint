@@ -158,7 +158,7 @@ export function ContactForm() {
       </div>
 
       {errors.form && (
-        <div role="alert" className="mt-6 rounded-lg border border-[#ff6b6b]/40 bg-[#ff6b6b]/10 p-4 text-sm">
+        <div role="alert" className="mt-6 rounded-lg border border-danger/40 bg-danger/10 p-4 text-sm">
           {errors.form} You can also email{" "}
           <a className="underline underline-offset-2" href={`mailto:${siteConfig.email}`}>
             {siteConfig.email}
@@ -182,7 +182,7 @@ function Label({ htmlFor, required, children }: { htmlFor: string; required?: bo
   return (
     <label htmlFor={htmlFor} className="mb-1.5 block text-sm font-semibold">
       {children}
-      {required && <span className="text-cyan"> *</span>}
+      {required && <span className="text-accent"> *</span>}
     </label>
   );
 }
@@ -272,7 +272,7 @@ function Select({
 function FieldError({ id, message }: { id: string; message?: string }) {
   if (!message) return null;
   return (
-    <p id={id} className="mt-1.5 text-sm text-[#ff8a8a]">
+    <p id={id} className="mt-1.5 text-sm text-danger">
       {message}
     </p>
   );

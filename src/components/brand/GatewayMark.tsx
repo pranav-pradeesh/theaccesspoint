@@ -58,7 +58,7 @@ export function GatewayMark({
         fill={mono ? "currentColor" : `url(#${id}r)`}
         opacity={mono ? 0.75 : 1}
       />
-      <path d={SPARK_PATH} fill={mono ? "currentColor" : "#ffffff"} />
+      <path d={SPARK_PATH} fill={mono ? "currentColor" : "var(--mark-spark)"} />
     </svg>
   );
 }

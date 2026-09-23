@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Logo } from "@/components/brand/Logo";
+import { ThemeToggle } from "@/components/navigation/ThemeToggle";
 import { primaryNav } from "@/lib/site";
 
 const links = [...primaryNav, { href: "/contact", label: "Contact" }] as const;
@@ -43,10 +44,11 @@ export function Header() {
       >
         Skip to content
       </a>
-      <header className="fixed inset-x-0 top-0 z-50 border-b border-line bg-obsidian/95 backdrop-blur-sm">
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-line bg-canvas/95 backdrop-blur-sm">
         <div className="container-ap flex h-16 items-center justify-between">
           <Logo />
 
+          <div className="flex items-center gap-3 md:gap-7">
           <nav aria-label="Primary" className="hidden md:block">
             <ul className="flex items-center gap-7">
               {links.map((item) => (
@@ -62,6 +64,8 @@ export function Header() {
               ))}
             </ul>
           </nav>
+
+          <ThemeToggle />
 
           <button
             ref={toggleRef}
@@ -80,6 +84,7 @@ export function Header() {
               )}
             </svg>
           </button>
+          </div>
         </div>
 
         <nav id="mobile-menu" aria-label="Mobile" hidden={!open} className="border-t border-line md:hidden">
