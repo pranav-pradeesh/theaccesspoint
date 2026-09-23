@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ServiceIllustration } from "@/components/illustrations/Illustration";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { FaqList } from "@/components/ui/FaqList";
 import { PageHero } from "@/components/ui/PageHero";
@@ -39,7 +40,10 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
 
   return (
     <>
-      <PageHero above={<Breadcrumbs items={crumbs} />} label={service.title} title={service.seoTitle} lead={service.description}>
+      <PageHero
+        above={<Breadcrumbs items={crumbs} />}
+        aside={<ServiceIllustration slug={service.slug} />}
+        label={service.title} title={service.seoTitle} lead={service.description}>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <Link href="/contact" className="btn btn-primary">
             Discuss your project
@@ -56,8 +60,8 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
             What we offer
           </h2>
           <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {service.deliverables.map((d) => (
-              <li key={d.title} className="card p-6">
+            {service.deliverables.map((d, i) => (
+              <li key={d.title} className="card p-6" data-reveal style={{ "--reveal-delay": `${(i % 3) * 80}ms` } as React.CSSProperties}>
                 <h3 className="t-h3">{d.title}</h3>
                 <p className="mt-2 text-fg-2">{d.text}</p>
               </li>
@@ -118,10 +122,13 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
           </h2>
           <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {others.map((s) => (
-              <li key={s.slug}>
-                <Link href={serviceHref(s)} className="card block h-full bg-canvas p-6 transition-colors hover:border-line-strong">
-                  <h3 className="t-h3">{s.title}</h3>
-                  <p className="mt-2 text-fg-2">{s.summary}</p>
+              <li key={s.slug} data-reveal>
+                <Link href={serviceHref(s)} className="card card-link block h-full overflow-hidden bg-canvas">
+                  <ServiceIllustration slug={s.slug} className="border-b border-line" />
+                  <div className="p-6">
+                    <h3 className="t-h3">{s.title}</h3>
+                    <p className="mt-2 text-fg-2">{s.summary}</p>
+                  </div>
                 </Link>
               </li>
             ))}

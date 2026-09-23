@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CourseEnquiry } from "@/components/training/CourseEnquiry";
+import { CourseIllustration } from "@/components/illustrations/Illustration";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { FaqList } from "@/components/ui/FaqList";
 import { PageHero } from "@/components/ui/PageHero";
@@ -40,7 +41,10 @@ export default async function CoursePage({ params }: PageProps<"/training/[slug]
 
   return (
     <>
-      <PageHero above={<Breadcrumbs items={crumbs} />} label={`${course.category} course`} title={course.seoTitle} lead={course.overview}>
+      <PageHero
+        above={<Breadcrumbs items={crumbs} />}
+        aside={<CourseIllustration slug={course.slug} />}
+        label={`${course.category} course`} title={course.seoTitle} lead={course.overview}>
         {course.affiliation && (
           <p className="mt-5 text-sm">
             <span className="tag mr-2">Affiliated programme</span>
@@ -84,7 +88,7 @@ export default async function CoursePage({ params }: PageProps<"/training/[slug]
           </div>
           <ol className="space-y-4">
             {course.modules.map((m, i) => (
-              <li key={m.title} className="card bg-canvas p-6">
+              <li key={m.title} className="card bg-canvas p-6" data-reveal>
                 <h3 className="t-h3">
                   Module {i + 1}: {m.title}
                 </h3>
@@ -164,10 +168,13 @@ export default async function CoursePage({ params }: PageProps<"/training/[slug]
             </h2>
             <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {related.map((c) => (
-                <li key={c.slug}>
-                  <Link href={`/training/${c.slug}`} className="card block h-full bg-canvas p-6 transition-colors hover:border-line-strong">
-                    <h3 className="t-h3">{c.title}</h3>
-                    <p className="mt-2 text-fg-2">{c.summary}</p>
+                <li key={c.slug} data-reveal>
+                  <Link href={`/training/${c.slug}`} className="card card-link block h-full overflow-hidden bg-canvas">
+                    <CourseIllustration slug={c.slug} className="border-b border-line" />
+                    <div className="p-6">
+                      <h3 className="t-h3">{c.title}</h3>
+                      <p className="mt-2 text-fg-2">{c.summary}</p>
+                    </div>
                   </Link>
                 </li>
               ))}

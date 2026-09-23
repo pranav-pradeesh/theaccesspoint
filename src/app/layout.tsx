@@ -5,6 +5,7 @@ import { NavigationProgress } from "@/components/loader/NavigationProgress";
 import { PageLoader } from "@/components/loader/PageLoader";
 import { Header } from "@/components/navigation/Header";
 import { SmoothScroll } from "@/components/navigation/SmoothScroll";
+import { RevealOnScroll } from "@/components/motion/RevealOnScroll";
 import { JsonLd, organizationLd, websiteLd } from "@/lib/seo/jsonld";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { siteConfig } from "@/lib/site";
@@ -41,6 +42,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <PageLoader />
         <NavigationProgress />
         <SmoothScroll />
+        <RevealOnScroll />
         <Header />
         <main id="main" tabIndex={-1} className="outline-none">
           {children}
