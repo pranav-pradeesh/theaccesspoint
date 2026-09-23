@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Illustration, ServiceIllustration } from "@/components/illustrations/Illustration";
+import { HeroVisual } from "@/components/home/HeroVisual";
 import { FaqList } from "@/components/ui/FaqList";
 import { getCourses, getFaqs, getServices, serviceHref } from "@/lib/cms";
 import { siteConfig } from "@/lib/site";
@@ -12,7 +13,7 @@ export default async function HomePage() {
     <>
       {/* Intro */}
       <section className="border-b border-line pt-32 pb-16 lg:pt-40 lg:pb-20">
-        <div className="container-ap grid gap-12 lg:grid-cols-[1.5fr_1fr] lg:items-center">
+        <div className="container-ap grid gap-12 lg:grid-cols-[1.25fr_1fr] lg:items-center">
           <div>
             <p className="eyebrow">Coimbatore, Tamil Nadu</p>
             <h1 className="mt-3 text-[clamp(2.25rem,5vw,3.5rem)] leading-[1.1] font-bold tracking-[-0.02em]">
@@ -30,41 +31,23 @@ export default async function HomePage() {
                 View training courses
               </Link>
             </div>
+            <p className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-fg-2">
+              <span>
+                Call{" "}
+                <a href={siteConfig.phone.href} className="font-semibold text-fg hover:text-accent">
+                  {siteConfig.phone.display}
+                </a>
+              </span>
+              <span>
+                Email{" "}
+                <a href={`mailto:${siteConfig.email}`} className="font-semibold text-fg hover:text-accent">
+                  {siteConfig.email}
+                </a>
+              </span>
+            </p>
           </div>
 
-          <div className="card p-6">
-            <h2 className="text-base font-semibold">Get in touch</h2>
-            <dl className="mt-4 space-y-4 text-sm">
-              <div>
-                <dt className="text-fg-3">Phone</dt>
-                <dd className="mt-0.5">
-                  <a href={siteConfig.phone.href} className="text-base font-semibold hover:text-accent">
-                    {siteConfig.phone.display}
-                  </a>
-                </dd>
-              </div>
-              <div>
-                <dt className="text-fg-3">Email</dt>
-                <dd className="mt-0.5">
-                  <a href={`mailto:${siteConfig.email}`} className="hover:text-accent">
-                    {siteConfig.email}
-                  </a>
-                </dd>
-              </div>
-              <div>
-                <dt className="text-fg-3">Address</dt>
-                <dd className="mt-0.5 text-fg-2">
-                  <address className="not-italic">
-                    {siteConfig.address.lines.map((line) => (
-                      <span key={line} className="block">
-                        {line}
-                      </span>
-                    ))}
-                  </address>
-                </dd>
-              </div>
-            </dl>
-          </div>
+          <HeroVisual />
         </div>
       </section>
 
@@ -75,7 +58,7 @@ export default async function HomePage() {
             <h2 id="about-heading" className="t-h2">
               About The Access Point
             </h2>
-            <Illustration name="code" className="mt-6 max-w-sm rounded-xl" />
+            <Illustration name="brand" className="mt-6 max-w-sm rounded-xl" />
           </div>
           <div className="space-y-4 text-lg text-fg-2">
             <p>
