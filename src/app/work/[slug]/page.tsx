@@ -1,6 +1,5 @@
 import { notFound } from "next/navigation";
-import { CaseStudyView } from "@/components/projects/CaseStudyView";
-import { TransitionLink } from "@/components/transitions/TransitionLink";
+import Link from "next/link";
 import { RichText } from "@/components/ui/RichText";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { GalleryArt, ProjectCover } from "@/components/visuals/ProjectArt";
@@ -37,15 +36,13 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
 
   return (
     <>
-      <CaseStudyView slug={slug} />
-
       {/* Hero */}
       <section className="relative pt-36 lg:pt-44">
         <div className="container-ap">
           <div data-reveal>
             <SectionLabel>Case study</SectionLabel>
           </div>
-          <h1 data-reveal className="t-display mt-8 max-w-[14ch]">
+          <h1 data-reveal className="t-h1 mt-8 max-w-[18ch]">
             {project.name}
           </h1>
           <p data-reveal className="t-lead mt-8 max-w-2xl text-fg-2">
@@ -62,7 +59,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
         </div>
         <div className="container-ap mt-10">
           <div data-reveal className="overflow-hidden rounded-[20px] border border-line">
-            <div data-parallax="0.08" className="scale-[1.15]">
+            <div>
               <ProjectCover cover={project.cover} className="aspect-[4/3] w-full md:aspect-[21/9]" />
             </div>
           </div>
@@ -152,16 +149,16 @@ export default async function CaseStudyPage({ params }: PageProps<"/work/[slug]"
       {next && (
         <section className="section">
           <div className="container-ap">
-            <TransitionLink href={`/work/${next.slug}`} data-cursor="open" className="group block">
+            <Link href={`/work/${next.slug}`} className="group block">
               <SectionLabel index="09">Next project</SectionLabel>
               <div className="mt-8 flex items-end justify-between gap-6 border-b border-line pb-10">
-                <p className="t-display transition-colors duration-500 group-hover:text-cyan">{next.name}</p>
+                <p className="t-h1 transition-colors duration-300 group-hover:text-cyan">{next.name}</p>
                 <span aria-hidden className="text-5xl transition-transform duration-500 ease-[var(--ease-access)] group-hover:translate-x-3">
                   →
                 </span>
               </div>
               <p className="mt-6 max-w-xl text-fg-2">{next.summary}</p>
-            </TransitionLink>
+            </Link>
           </div>
         </section>
       )}

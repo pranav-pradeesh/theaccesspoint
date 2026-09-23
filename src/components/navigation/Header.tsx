@@ -3,13 +3,11 @@
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Logo } from "@/components/brand/Logo";
-import { useLenis } from "@/components/motion/SmoothScroll";
-import { TransitionLink } from "@/components/transitions/TransitionLink";
+import Link from "next/link";
 import { primaryNav, siteConfig } from "@/lib/site";
 
 export function Header() {
   const pathname = usePathname();
-  const lenis = useLenis();
   const [compact, setCompact] = useState(false);
   const [open, setOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -31,7 +29,6 @@ export function Header() {
 
   useEffect(() => {
     if (!open) return;
-    lenis?.stop();
     document.body.style.overflow = "hidden";
     menuRef.current?.querySelector<HTMLElement>("a")?.focus();
     const toggle = toggleRef.current;
@@ -55,10 +52,9 @@ export function Header() {
     return () => {
       window.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
-      lenis?.start();
       toggle?.focus();
     };
-  }, [open, lenis]);
+  }, [open]);
 
   const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
 
@@ -87,27 +83,25 @@ export function Header() {
               <ul className="flex items-center gap-9">
                 {primaryNav.map((item) => (
                   <li key={item.href}>
-                    <TransitionLink
+                    <Link
                       href={item.href}
                       aria-current={isActive(item.href) ? "page" : undefined}
                       className="link-underline relative py-1 text-[15px] font-medium text-fg-2 transition-colors hover:text-fg aria-[current=page]:text-fg"
                     >
                       {item.label}
-                    </TransitionLink>
+                    </Link>
                   </li>
                 ))}
               </ul>
             </nav>
 
             <div className="flex items-center gap-2">
-              <TransitionLink
+              <Link
                 href="/contact"
-                data-magnetic
-                data-track="Start a Project"
                 className={`btn btn-primary hidden sm:inline-flex ${compact ? "h-11!" : ""}`}
               >
                 Start a Project <span className="arrow">→</span>
-              </TransitionLink>
+              </Link>
               <button
                 ref={toggleRef}
                 type="button"
@@ -144,22 +138,22 @@ export function Header() {
           <ul className="border-t border-line">
             {[...primaryNav, { href: "/contact", label: "Contact" }].map((item, i) => (
               <li key={item.href} className="border-b border-line">
-                <TransitionLink
+                <Link
                   href={item.href}
                   aria-current={isActive(item.href) ? "page" : undefined}
                   className="flex items-baseline justify-between py-5 text-4xl font-bold tracking-tight aria-[current=page]:text-cyan"
                 >
                   {item.label}
                   <span className="t-micro text-fg-3">0{i + 1}</span>
-                </TransitionLink>
+                </Link>
               </li>
             ))}
           </ul>
         </nav>
         <div className="container-ap relative pb-10">
-          <TransitionLink href="/contact" className="btn btn-primary btn-lg w-full">
+          <Link href="/contact" className="btn btn-primary btn-lg w-full">
             Start a Project <span className="arrow">→</span>
-          </TransitionLink>
+          </Link>
           <div className="mt-5 flex flex-wrap justify-center gap-x-6 gap-y-2 text-fg-2">
             <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
             <a href={siteConfig.phone.href}>{siteConfig.phone.display}</a>

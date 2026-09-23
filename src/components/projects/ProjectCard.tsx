@@ -1,16 +1,16 @@
-import { TransitionLink } from "@/components/transitions/TransitionLink";
+import Link from "next/link";
 import { ProjectCover } from "@/components/visuals/ProjectArt";
 import type { Project } from "@/lib/cms/types";
 
 export function ProjectCard({ project, index, large }: { project: Project; index: number; large?: boolean }) {
   return (
     <article data-reveal className="group">
-      <TransitionLink href={`/work/${project.slug}`} data-cursor="view" className="block" aria-label={`${project.name} — view case study`}>
+      <Link href={`/work/${project.slug}`} className="block" aria-label={`${project.name} — view case study`}>
         <div className="relative overflow-hidden rounded-[18px] border border-line">
-          <div data-parallax="0.06" className="scale-[1.12]">
+          <div>
             <ProjectCover
               cover={project.cover}
-              className={`w-full transition-transform duration-[1.2s] ease-[var(--ease-access)] group-hover:scale-[1.04] ${
+              className={`w-full transition-transform duration-500 ease-[var(--ease-access)] group-hover:scale-[1.02] ${
                 large ? "aspect-[4/3] lg:aspect-[16/8]" : "aspect-[4/3]"
               }`}
             />
@@ -42,7 +42,7 @@ export function ProjectCard({ project, index, large }: { project: Project; index
             </span>
           </div>
         </div>
-      </TransitionLink>
+      </Link>
     </article>
   );
 }

@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { track } from "@/lib/analytics/track";
 import { siteConfig } from "@/lib/site";
 import { budgets, leadSchema, projectTypes, stepFields, timelines, type LeadInput } from "@/lib/validation/lead";
 
@@ -75,7 +74,6 @@ export function ProjectBuilder() {
         setStatus("idle");
         return;
       }
-      track("Project Submitted", { projectType: parsed.data.projectType, budget: parsed.data.budget });
       setStatus("sent");
     } catch {
       setErrors({ form: "We couldn't reach the server. Check your connection and try again." });
@@ -93,7 +91,7 @@ export function ProjectBuilder() {
     return (
       <div className="card-gateway p-8 hover:translate-y-0! lg:p-12" role="status">
         <div className="hairline-glow absolute inset-x-0 top-0" aria-hidden />
-        <p className="t-micro text-cyan">[ Brief received ]</p>
+        <p className="t-micro text-cyan">Brief received</p>
         <h2 ref={headingRef} tabIndex={-1} className="t-h2 mt-6 outline-none">
           Thank you, {data.name.split(" ")[0]}.
         </h2>
@@ -189,7 +187,6 @@ export function ProjectBuilder() {
               aria-describedby={`description-hint${errors.description ? " description-error" : ""}`}
               className="field mt-6 resize-y"
               placeholder="e.g. We run a training institute and need a website where students can find courses and enquire…"
-              data-lenis-prevent
             />
             <div className="mt-2 flex justify-between text-sm">
               <FieldError id="description-error" message={errors.description} />
@@ -279,7 +276,7 @@ export function ProjectBuilder() {
             Continue <span className="arrow">→</span>
           </button>
         ) : (
-          <button type="submit" className="btn btn-primary" disabled={status === "sending"} data-track="Send Project Brief">
+          <button type="submit" className="btn btn-primary" disabled={status === "sending"}>
             {status === "sending" ? "Sending…" : "Send Project Brief"} <span className="arrow">→</span>
           </button>
         )}

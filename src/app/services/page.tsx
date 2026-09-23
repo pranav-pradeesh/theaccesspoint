@@ -1,4 +1,4 @@
-import { ProcessScroll } from "@/components/home/ProcessScroll";
+import { ProcessSteps } from "@/components/home/ProcessSteps";
 import { CtaBand } from "@/components/ui/CtaBand";
 import { PageHero } from "@/components/ui/PageHero";
 import { SectionLabel } from "@/components/ui/SectionLabel";
@@ -88,7 +88,7 @@ export default async function ServicesPage() {
         ))}
       </div>
 
-      <ProcessScroll steps={processSteps} />
+      <ProcessSteps steps={processSteps} label="How we work" />
       <CtaBand title="Not sure which service you need?" lead="Tell us about the problem. We'll help you work out the right approach — even if it's smaller than you expected." />
 
       <JsonLd

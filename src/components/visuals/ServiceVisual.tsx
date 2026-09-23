@@ -3,7 +3,6 @@ import type { ServiceVisualKey } from "@/lib/cms/types";
 
 /**
  * Contextual, generated vector visuals for each service (no stock imagery).
- * Animations are CSS-only and are neutralised by prefers-reduced-motion.
  */
 export function ServiceVisual({ kind, className }: { kind: ServiceVisualKey; className?: string }) {
   const id = `sv${useId().replace(/[^a-zA-Z0-9]/g, "")}`;
@@ -20,13 +19,6 @@ export function ServiceVisual({ kind, className }: { kind: ServiceVisualKey; cla
   );
 }
 
-const draw = (delay = 0) => ({
-  strokeDasharray: 600,
-  strokeDashoffset: 600,
-  animation: `ap-dash 1.6s ${delay}s cubic-bezier(0.16,1,0.3,1) forwards`,
-});
-const pulse = (delay = 0) => ({ animation: `ap-pulse 2.4s ${delay}s ease-in-out infinite` });
-
 const visuals = (blue: string): Record<ServiceVisualKey, React.ReactNode> => ({
   // Browser / window composition
   web: (
@@ -39,9 +31,9 @@ const visuals = (blue: string): Record<ServiceVisualKey, React.ReactNode> => ({
       <rect x="120" y="46" width="200" height="16" rx="8" fill="rgba(255,255,255,0.05)" />
       <rect x="64" y="96" width="150" height="16" rx="4" fill="#f6f8fc" opacity="0.9" />
       <rect x="64" y="122" width="110" height="10" rx="3" fill="rgba(255,255,255,0.25)" />
-      <rect x="64" y="148" width="70" height="24" rx="12" fill={blue} style={pulse(0.2)} />
+      <rect x="64" y="148" width="70" height="24" rx="12" fill={blue} />
       <rect x="236" y="96" width="100" height="142" rx="10" fill="rgba(8,107,255,0.14)" stroke="rgba(37,199,255,0.4)" />
-      <path d="M252 206L286 150L318 206Z" fill="none" stroke="#25c7ff" strokeWidth="2" style={draw(0.3)} />
+      <path d="M252 206L286 150L318 206Z" fill="none" stroke="#25c7ff" strokeWidth="2" />
       {[196, 214, 232].map((y, i) => (
         <rect key={y} x="64" y={y} width={140 - i * 30} height="8" rx="3" fill="rgba(255,255,255,0.1)" />
       ))}
@@ -78,12 +70,9 @@ const visuals = (blue: string): Record<ServiceVisualKey, React.ReactNode> => ({
         "M200 168L150 222",
         "M200 168L250 222",
         "M310 168L270 222",
-      ].map((d, i) => (
-        <path key={d} d={d} stroke="#25c7ff" style={draw(i * 0.12)} />
+      ].map((d) => (
+        <path key={d} d={d} stroke="#25c7ff" />
       ))}
-      <circle r="4" fill="#25c7ff" className="motion-reduce:hidden">
-        <animateMotion dur="2.4s" repeatCount="indefinite" path="M200 78V132L200 168L250 222" />
-      </circle>
     </g>
   ),
   // Interface / components
@@ -95,10 +84,10 @@ const visuals = (blue: string): Record<ServiceVisualKey, React.ReactNode> => ({
       <rect x="76" y="160" width="100" height="8" rx="3" fill="rgba(255,255,255,0.25)" />
       <rect x="76" y="210" width="108" height="32" rx="16" fill="#086bff" />
       <g stroke="#25c7ff" strokeDasharray="4 4" fill="none">
-        <rect x="222" y="60" width="120" height="44" rx="10" style={pulse(0)} />
-        <rect x="222" y="120" width="120" height="44" rx="22" style={pulse(0.4)} />
-        <rect x="222" y="180" width="54" height="54" rx="10" style={pulse(0.8)} />
-        <circle cx="315" cy="207" r="27" style={pulse(1.2)} />
+        <rect x="222" y="60" width="120" height="44" rx="10" />
+        <rect x="222" y="120" width="120" height="44" rx="22" />
+        <rect x="222" y="180" width="54" height="54" rx="10" />
+        <circle cx="315" cy="207" r="27" />
       </g>
       <path d="M200 82H222M200 142H222" stroke="rgba(255,255,255,0.25)" />
     </g>
@@ -116,8 +105,8 @@ const visuals = (blue: string): Record<ServiceVisualKey, React.ReactNode> => ({
         ["#086bff", 190],
         ["#25c7ff", 250],
         ["#f6f8fc", 310],
-      ].map(([c, x], i) => (
-        <rect key={String(c)} x={Number(x) - 22} y="236" width="44" height="28" rx="6" fill={String(c)} stroke="rgba(255,255,255,0.15)" style={pulse(i * 0.25)} />
+      ].map(([c, x]) => (
+        <rect key={String(c)} x={Number(x) - 22} y="236" width="44" height="28" rx="6" fill={String(c)} stroke="rgba(255,255,255,0.15)" />
       ))}
       <text x="40" y="60" fill="#94a3b8" fontSize="12" fontFamily="var(--font-mono)" letterSpacing="2">
         MANROPE / 800 / -0.035EM
@@ -132,13 +121,13 @@ const visuals = (blue: string): Record<ServiceVisualKey, React.ReactNode> => ({
       <path d="M82 66L88 72" stroke="#25c7ff" strokeWidth="2" />
       <rect x="100" y="55" width="140" height="10" rx="4" fill="rgba(255,255,255,0.25)" />
       <path d="M60 250H350M60 250V110" stroke="rgba(255,255,255,0.15)" />
-      <path d="M60 236L110 220L160 226L210 184L260 172L310 130L345 118" stroke={blue} strokeWidth="3" style={draw(0)} />
+      <path d="M60 236L110 220L160 226L210 184L260 172L310 130L345 118" stroke={blue} strokeWidth="3" />
       {[
         [110, 220],
         [210, 184],
         [310, 130],
       ].map(([x, y], i) => (
-        <circle key={i} cx={x} cy={y} r="5" fill="#25c7ff" style={pulse(i * 0.3)} />
+        <circle key={i} cx={x} cy={y} r="5" fill="#25c7ff" />
       ))}
     </g>
   ),
@@ -153,8 +142,8 @@ const visuals = (blue: string): Record<ServiceVisualKey, React.ReactNode> => ({
         ["M200 150L200 260", 0.4],
         ["M100 80L200 40L300 80", 0.5],
         ["M80 200L200 260L320 210", 0.6],
-      ].map(([d, delay]) => (
-        <path key={String(d)} d={String(d)} stroke="#25c7ff" strokeOpacity="0.6" fill="none" style={draw(Number(delay))} />
+      ].map(([d]) => (
+        <path key={String(d)} d={String(d)} stroke="#25c7ff" strokeOpacity="0.6" fill="none" />
       ))}
       {[
         [200, 40],
@@ -164,7 +153,7 @@ const visuals = (blue: string): Record<ServiceVisualKey, React.ReactNode> => ({
         [320, 210],
         [200, 260],
       ].map(([x, y], i) => (
-        <circle key={i} cx={x} cy={y} r="8" fill="#0e1726" stroke="#25c7ff" strokeWidth="2" style={pulse(i * 0.3)} />
+        <circle key={i} cx={x} cy={y} r="8" fill="#0e1726" stroke="#25c7ff" strokeWidth="2" />
       ))}
       <circle cx="200" cy="150" r="30" fill="rgba(8,107,255,0.25)" stroke="#086bff" />
       <path

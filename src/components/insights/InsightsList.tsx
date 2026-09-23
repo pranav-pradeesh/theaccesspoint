@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { TransitionLink } from "@/components/transitions/TransitionLink";
+import Link from "next/link";
 import type { Article, ArticleCategory } from "@/lib/cms/types";
 
 const dateFmt = new Intl.DateTimeFormat("en-IN", { day: "numeric", month: "short", year: "numeric" });
@@ -39,7 +39,7 @@ export function InsightsList({ articles, categories }: { articles: Article[]; ca
       <ul className="mt-12 border-t border-line">
         {visible.map((a) => (
           <li key={a.slug} className="border-b border-line">
-            <TransitionLink href={`/insights/${a.slug}`} data-cursor="open" className="group grid gap-4 py-10 lg:grid-cols-12 lg:gap-8">
+            <Link href={`/insights/${a.slug}`} className="group grid gap-4 py-10 lg:grid-cols-12 lg:gap-8">
               <div className="t-micro flex gap-4 text-fg-3 lg:col-span-3 lg:flex-col lg:gap-2">
                 <span className="text-cyan">{a.category}</span>
                 <time dateTime={a.publishedAt}>{dateFmt.format(new Date(a.publishedAt))}</time>
@@ -54,7 +54,7 @@ export function InsightsList({ articles, categories }: { articles: Article[]; ca
                   →
                 </span>
               </div>
-            </TransitionLink>
+            </Link>
           </li>
         ))}
       </ul>

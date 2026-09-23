@@ -33,10 +33,10 @@ export const articles: Article[] = [
         type: "p",
         text: "Answering these in the design phase costs nothing. Answering them after launch means rework.",
       },
-      { type: "h2", text: "Motion without the weight" },
+      { type: "h2", text: "Animation, used sparingly" },
       {
         type: "p",
-        text: "We love motion. But the most effective animation uses cheap properties — transform and opacity — runs only when it is visible, and switches off for people who have asked their device to reduce motion. Done this way, a site can feel cinematic and still load quickly.",
+        text: "Animation should support understanding, not compete with it. When we use it, it is brief, uses inexpensive properties such as transform and opacity, and switches off for people who have asked their device to reduce motion.",
       },
       {
         type: "quote",
@@ -84,7 +84,7 @@ export const articles: Article[] = [
       { type: "h2", text: "Where this is going" },
       {
         type: "p",
-        text: "These ideas shape the workshops we run and the Academy we are designing. Access to knowledge shouldn't depend on where you started — and it should never be the barrier.",
+        text: "These ideas shape the workshops and the Academy we are designing. Access to knowledge shouldn't depend on where you started — and it should never be the barrier.",
       },
     ],
   },
