@@ -4,7 +4,7 @@ import { loaderScript } from "./loaderScript";
 /**
  * First-load loader. The markup is server-rendered (hidden unless JS is available) and the inline
  * script right after it drives progress before React hydrates. Nodes the script mutates carry
- * suppressHydrationWarning, and the loader is hidden — never removed — so hydration stays clean.
+ * suppressHydrationWarning, and the loader is hidden (never removed) so hydration stays clean.
  */
 export function PageLoader() {
   return (
@@ -25,9 +25,9 @@ export function PageLoader() {
             </g>
             <polygon className="apl-l" points={LEFT_PLANE} fill="#0b2a67" />
             <polygon className="apl-r" points={RIGHT_PLANE} fill="#086bff" />
-            <path d={SPARK_PATH} fill="#fff" />
+            <path d={SPARK_PATH} fill="var(--mark-spark)" />
           </svg>
-          <p className="apl-name">THE ACCESS POINT</p>
+          <p className="apl-name">The Access Point</p>
           <div className="apl-bar">
             <span suppressHydrationWarning />
           </div>

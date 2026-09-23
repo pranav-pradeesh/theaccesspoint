@@ -1,24 +1,18 @@
 "use client";
 
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Logo } from "@/components/brand/Logo";
-import Link from "next/link";
-import { primaryNav, siteConfig } from "@/lib/site";
+import { ThemeToggle } from "@/components/navigation/ThemeToggle";
+import { primaryNav } from "@/lib/site";
+
+const links = [...primaryNav, { href: "/contact", label: "Contact" }] as const;
 
 export function Header() {
   const pathname = usePathname();
-  const [compact, setCompact] = useState(false);
   const [open, setOpen] = useState(false);
-  const menuRef = useRef<HTMLDivElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
-
-  useEffect(() => {
-    const onScroll = () => setCompact(window.scrollY > 40);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   // Close the menu whenever the route changes.
   const [lastPath, setLastPath] = useState(pathname);
@@ -29,31 +23,15 @@ export function Header() {
 
   useEffect(() => {
     if (!open) return;
-    document.body.style.overflow = "hidden";
-    menuRef.current?.querySelector<HTMLElement>("a")?.focus();
     const toggle = toggleRef.current;
-
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(false);
-      if (e.key !== "Tab" || !menuRef.current) return;
-      // Keep focus inside the menu + its toggle.
-      const items = [toggle, ...menuRef.current.querySelectorAll<HTMLElement>("a")].filter(Boolean) as HTMLElement[];
-      const first = items[0];
-      const last = items[items.length - 1];
-      if (e.shiftKey && document.activeElement === first) {
-        e.preventDefault();
-        last?.focus();
-      } else if (!e.shiftKey && document.activeElement === last) {
-        e.preventDefault();
-        first?.focus();
+      if (e.key === "Escape") {
+        setOpen(false);
+        toggle?.focus();
       }
     };
     window.addEventListener("keydown", onKey);
-    return () => {
-      window.removeEventListener("keydown", onKey);
-      document.body.style.overflow = "";
-      toggle?.focus();
-    };
+    return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
   const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
@@ -66,100 +44,65 @@ export function Header() {
       >
         Skip to content
       </a>
-      <header className="fixed inset-x-0 top-0 z-50">
-        <div
-          className={`container-ap transition-[padding] duration-500 ease-[var(--ease-access)] ${compact ? "pt-3" : "pt-5 lg:pt-7"}`}
-        >
-          <div
-            className={`flex items-center justify-between rounded-full border transition-all duration-500 ease-[var(--ease-access)] ${
-              compact || open
-                ? "border-line bg-[rgb(8_14_26/0.72)] py-2 pr-2 pl-4 backdrop-blur-xl"
-                : "border-transparent bg-transparent py-2 pr-0 pl-0"
-            }`}
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-line bg-canvas/95 backdrop-blur-sm">
+        <div className="container-ap flex h-16 items-center justify-between">
+          <Logo />
+
+          <div className="flex items-center gap-3 md:gap-7">
+          <nav aria-label="Primary" className="hidden md:block">
+            <ul className="flex items-center gap-7">
+              {links.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    aria-current={isActive(item.href) ? "page" : undefined}
+                    className="text-[15px] font-medium text-fg-2 transition-colors hover:text-fg aria-[current=page]:text-fg"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <ThemeToggle />
+
+          <button
+            ref={toggleRef}
+            type="button"
+            className="flex size-10 items-center justify-center rounded-md border border-line-strong md:hidden"
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            aria-label={open ? "Close menu" : "Open menu"}
+            onClick={() => setOpen((v) => !v)}
           >
-            <Logo compact={compact} />
-
-            <nav aria-label="Primary" className="hidden lg:block">
-              <ul className="flex items-center gap-9">
-                {primaryNav.map((item) => (
-                  <li key={item.href}>
-                    <Link
-                      href={item.href}
-                      aria-current={isActive(item.href) ? "page" : undefined}
-                      className="link-underline relative py-1 text-[15px] font-medium text-fg-2 transition-colors hover:text-fg aria-[current=page]:text-fg"
-                    >
-                      {item.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-
-            <div className="flex items-center gap-2">
-              <Link
-                href="/contact"
-                className={`btn btn-primary hidden sm:inline-flex ${compact ? "h-11!" : ""}`}
-              >
-                Start a Project <span className="arrow">→</span>
-              </Link>
-              <button
-                ref={toggleRef}
-                type="button"
-                className="relative flex size-11 items-center justify-center rounded-full border border-line-strong lg:hidden"
-                aria-expanded={open}
-                aria-controls="mobile-menu"
-                aria-label={open ? "Close menu" : "Open menu"}
-                onClick={() => setOpen((v) => !v)}
-              >
-                <span
-                  className={`absolute h-px w-5 bg-fg transition-transform duration-300 ${open ? "rotate-45" : "-translate-y-[4px]"}`}
-                />
-                <span
-                  className={`absolute h-px w-5 bg-fg transition-transform duration-300 ${open ? "-rotate-45" : "translate-y-[4px]"}`}
-                />
-              </button>
-            </div>
+            <svg viewBox="0 0 20 20" className="size-5" aria-hidden>
+              {open ? (
+                <path d="M5 5l10 10M15 5L5 15" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+              ) : (
+                <path d="M3 6h14M3 10h14M3 14h14" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+              )}
+            </svg>
+          </button>
           </div>
         </div>
-      </header>
 
-      {/* Mobile: fullscreen menu with its own thumb-first layout */}
-      <div
-        id="mobile-menu"
-        ref={menuRef}
-        role="dialog"
-        aria-modal="true"
-        aria-label="Menu"
-        hidden={!open}
-        className="fixed inset-0 z-40 flex flex-col bg-obsidian pt-28 lg:hidden"
-      >
-        <div className="grid-lines pointer-events-none absolute inset-0 opacity-60" aria-hidden />
-        <nav aria-label="Mobile" className="container-ap relative flex-1">
-          <ul className="border-t border-line">
-            {[...primaryNav, { href: "/contact", label: "Contact" }].map((item, i) => (
-              <li key={item.href} className="border-b border-line">
+        <nav id="mobile-menu" aria-label="Mobile" hidden={!open} className="border-t border-line md:hidden">
+          <ul className="container-ap py-2">
+            {links.map((item) => (
+              <li key={item.href}>
                 <Link
                   href={item.href}
                   aria-current={isActive(item.href) ? "page" : undefined}
-                  className="flex items-baseline justify-between py-5 text-4xl font-bold tracking-tight aria-[current=page]:text-cyan"
+                  className="block py-3 text-base font-medium text-fg-2 aria-[current=page]:text-fg"
                 >
                   {item.label}
-                  <span className="t-micro text-fg-3">0{i + 1}</span>
                 </Link>
               </li>
             ))}
           </ul>
         </nav>
-        <div className="container-ap relative pb-10">
-          <Link href="/contact" className="btn btn-primary btn-lg w-full">
-            Start a Project <span className="arrow">→</span>
-          </Link>
-          <div className="mt-5 flex flex-wrap justify-center gap-x-6 gap-y-2 text-fg-2">
-            <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
-            <a href={siteConfig.phone.href}>{siteConfig.phone.display}</a>
-          </div>
-        </div>
-      </div>
+      </header>
     </>
   );
 }

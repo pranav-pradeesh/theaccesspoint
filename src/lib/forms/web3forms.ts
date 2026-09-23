@@ -20,7 +20,7 @@ export async function submitToWeb3Forms({
   subject: string;
   fromName: string;
   replyTo: string;
-  /** Honeypot value — must be empty for real people. */
+  /** Honeypot value; must be empty for real people. */
   botcheck: string;
   fields: Record<string, string>;
 }): Promise<SubmitResult> {

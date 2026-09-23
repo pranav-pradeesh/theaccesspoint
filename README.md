@@ -1,6 +1,6 @@
 # The Access Point — Gateway to Knowledge
 
-Corporate website for The Access Point. Next.js 16 (App Router) · TypeScript (strict) · Tailwind CSS 4 · GSAP (entrance fades only).
+Website for The Access Point, Coimbatore. Next.js 16 (App Router), TypeScript (strict) and Tailwind CSS 4.
 
 ## Getting started
 
@@ -32,11 +32,9 @@ Node 20.9+ is required.
 
 ```text
 src/
-├── app/                  routes: /, /work, /work/[slug], /services, /training, /about,
-│                         /insights, /insights/[slug], /contact, sitemap, robots, OG images
-├── animations/           GSAP entrance fades — reveal, staggerReveal
-├── components/           brand, navigation, hero, home, services, projects,
-│                         insights, contact, training, loader, motion, ui, visuals
+├── app/                  routes: /, /services, /training, /about, /contact,
+│                         sitemap, robots, OG image
+├── components/           brand, navigation, footer, contact, training, loader, ui
 └── lib/
     ├── cms/              content layer (see below)
     ├── validation/       zod/mini schema for the project brief form
@@ -46,18 +44,19 @@ src/
 
 ### Content
 
-All content is read through the async functions in `src/lib/cms/index.ts`. Right now they return typed data from `src/lib/cms/content/*.ts`. To move to Sanity, Payload or Strapi, reimplement those functions against the CMS client. Pages don't need to change.
+Pages read content through the async functions in `src/lib/cms/index.ts`, which currently return typed data from `src/lib/cms/content/*.ts`. Moving to a headless CMS later means reimplementing that file; pages don't change.
 
-- **Case studies:** `content/projects.ts`. Only publish real work. The two entries right now are in-house: the site itself and the Academy concept, which is labelled "Concept".
-- **Training courses:** `content/courses.ts`
-- **Articles:** `content/articles.ts`
-- **Services / philosophy / mission / process:** `content/services.ts`, `content/company.ts`
-- **Contact details:** `src/lib/site.ts` — email, phone and Coimbatore address are taken from the company's 2017 site; confirm they are current. Add only verified social profiles.
+- **Services:** `content/services.ts`
+- **Training courses:** `content/courses.ts`. For courses run as affiliated programmes, add `affiliation: { partner, certificate }`; the Training page then shows an "Affiliated programme" badge with those details.
+- **Values and mission:** `content/company.ts`
+- **Contact details:** `src/lib/site.ts`. The email, phone and Coimbatore address come from the company's 2017 site; confirm they are current. Add only verified social profiles.
 
-### Motion
+Only publish real information. There is no portfolio or blog yet; add them once there are real projects and articles to show.
 
-Motion is kept deliberately minimal. Add `data-reveal` (or `data-reveal="stagger"` for children) to fade an element in as it scrolls into view; `MotionController` wires this up on every route, so sections stay server components. There is no smooth scrolling, custom cursor, page transition or parallax, and no analytics or tracking.
+### Themes
 
-**Loader.** On a full page load, an inline script (`components/loader/loaderScript.ts`) shows a progress overlay driven by real resource loading (Resource Timing API) and lifts on the window `load` event. It only appears if loading takes longer than 300ms, and a 10s failsafe always releases the page. In-app navigation shows a thin top bar that completes when the new route renders. The page scrollbar is hidden; scrolling still works normally.
+Light and dark themes are defined as CSS variables in `src/app/globals.css` (light on `:root`, dark on `[data-theme="dark"]`, plus a `prefers-color-scheme` fallback for visitors without JavaScript). A small script in `layout.tsx` applies the saved choice, or the system setting, before first paint so there is no flash. The header toggle (`components/navigation/ThemeToggle.tsx`) switches themes and saves the choice in `localStorage`.
 
-With `prefers-reduced-motion` set, the fades are skipped. With JavaScript disabled, all content renders — elements only start hidden once an inline script confirms JS is running.
+### Loader
+
+On a full page load, an inline script (`components/loader/loaderScript.ts`) shows a progress overlay driven by real resource loading (Resource Timing API) and removes it on the window `load` event. It only appears if loading takes longer than 300ms, and a 10s failsafe always releases the page. In-app navigation shows a thin top bar that completes when the new page renders. There are no other animations. The page scrollbar is hidden; scrolling works normally.

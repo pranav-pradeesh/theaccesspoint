@@ -8,12 +8,12 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
   }, [error]);
 
   return (
-    <section className="flex min-h-svh items-center py-32">
-      <div className="container-ap text-center">
-        <p className="t-micro text-cyan">Error</p>
-        <h1 className="t-h1 mx-auto mt-6 max-w-[16ch]">Something went wrong on our side.</h1>
-        <p className="t-lead mx-auto mt-6 max-w-lg text-fg-2">Please try again. If it keeps happening, email us and we&apos;ll look into it.</p>
-        <button type="button" onClick={reset} className="btn btn-primary btn-lg mt-10">
+    <section className="pt-40 pb-24">
+      <div className="container-ap">
+        <p className="eyebrow">Error</p>
+        <h1 className="t-h1 mt-3">Something went wrong</h1>
+        <p className="t-lead mt-4 max-w-lg">Please try again. If the problem continues, contact us by phone or email.</p>
+        <button type="button" onClick={reset} className="btn btn-primary mt-8">
           Try again
         </button>
       </div>

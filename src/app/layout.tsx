@@ -1,9 +1,8 @@
 import type { Metadata, Viewport } from "next";
-import { JetBrains_Mono, Manrope } from "next/font/google";
+import { Manrope } from "next/font/google";
 import { Footer } from "@/components/footer/Footer";
-import { PageLoader } from "@/components/loader/PageLoader";
 import { NavigationProgress } from "@/components/loader/NavigationProgress";
-import { MotionController } from "@/components/motion/MotionController";
+import { PageLoader } from "@/components/loader/PageLoader";
 import { Header } from "@/components/navigation/Header";
 import { JsonLd, organizationLd, websiteLd } from "@/lib/seo/jsonld";
 import { buildMetadata } from "@/lib/seo/metadata";
@@ -11,7 +10,6 @@ import { siteConfig } from "@/lib/site";
 import "./globals.css";
 
 const manrope = Manrope({ subsets: ["latin"], variable: "--font-manrope", display: "swap" });
-const jetbrains = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains", weight: ["400", "500"], display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -20,19 +18,22 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#04070d",
-  colorScheme: "dark",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#070b14" },
+  ],
+  colorScheme: "light dark",
 };
 
-// Marks JS as available before first paint so [data-reveal] content can start hidden
-// without a flash — and stays visible when JS is off.
-const jsFlag = `document.documentElement.classList.add('js')`;
+// Runs before first paint: marks JS as available (for the page loader) and applies the saved
+// theme, or the system theme when none is saved, so there is no flash of the wrong colours.
+const bootScript = `(function(){var r=document.documentElement;r.classList.add('js');var t=null;try{t=localStorage.getItem('theme')}catch(e){}if(t!=='light'&&t!=='dark')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';r.dataset.theme=t})();`;
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en-IN" className={`${manrope.variable} ${jetbrains.variable}`} suppressHydrationWarning>
+    <html lang="en-IN" className={manrope.variable} suppressHydrationWarning>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: jsFlag }} />
+        <script dangerouslySetInnerHTML={{ __html: bootScript }} />
       </head>
       <body>
         <PageLoader />
@@ -42,7 +43,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           {children}
         </main>
         <Footer />
-        <MotionController />
         <JsonLd data={[organizationLd(), websiteLd()]} />
       </body>
     </html>
